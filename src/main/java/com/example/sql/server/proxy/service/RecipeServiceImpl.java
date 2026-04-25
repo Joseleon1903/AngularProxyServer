@@ -18,10 +18,9 @@ public class RecipeServiceImpl implements RecipeService{
 
     // ✅ Crear receta con ingredientes
     public Recipe create(Recipe recipe) {
-
-        recipe.getIngredients().forEach(i -> i.setRecipe(recipe));
-        // asegura relación bidireccional
-        return recipeRepository.save(recipe);
+        recipe = recipeRepository.save(recipe);
+        System.out.println("save: "+recipe);
+        return recipe;
     }
 
     // 📋 Listar todas
