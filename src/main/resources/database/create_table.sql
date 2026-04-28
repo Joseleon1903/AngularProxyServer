@@ -48,3 +48,16 @@ CREATE TABLE RecipeIngredients (
     CONSTRAINT FK_RecipeIngredients_Ingredient
         FOREIGN KEY (IngredientId) REFERENCES Ingredients(Id)
 );
+
+CREATE TABLE Sales (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    SaleDate DATE NOT NULL,
+    ReferenceNumber VARCHAR(20) NOT NULL,
+    CustomerName VARCHAR(100) NOT NULL,
+    ProductDescription VARCHAR(255),
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(10,2) NOT NULL,
+    TotalAmount AS (Quantity * UnitPrice) PERSISTED,
+    PaymentMethod VARCHAR(50) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
