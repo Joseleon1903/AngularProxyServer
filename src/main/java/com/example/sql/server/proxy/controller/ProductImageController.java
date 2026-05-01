@@ -3,8 +3,10 @@ package com.example.sql.server.proxy.controller;
 import com.example.sql.server.proxy.domain.IngredientImage;
 import com.example.sql.server.proxy.domain.ProductImage;
 import com.example.sql.server.proxy.domain.RecipeImage;
+import com.example.sql.server.proxy.domain.SaleAttachment;
 import com.example.sql.server.proxy.service.ProductImageService;
 import com.example.sql.server.proxy.service.RecipeImageService;
+import com.example.sql.server.proxy.service.SaleAttachmenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,9 +22,13 @@ public class ProductImageController {
 
     private final RecipeImageService recipeImageService;
 
-    public ProductImageController(ProductImageService productImageService, RecipeImageService recipeImageService) {
+    private final SaleAttachmenService saleAttachmenService;
+
+
+    public ProductImageController(ProductImageService productImageService, RecipeImageService recipeImageService, SaleAttachmenService saleAttachmenService) {
         this.productImageService = productImageService;
         this.recipeImageService = recipeImageService;
+        this.saleAttachmenService = saleAttachmenService;
     }
 
     @PostMapping("/upload/{root}")
@@ -44,6 +50,11 @@ public class ProductImageController {
             IngredientImage imgIngredient = new IngredientImage();
             imgIngredient.setImage(file.getBytes());
             imgIngredient.setName(String.valueOf(path.getFileName()));
+
+            SaleAttachment imgSale = new SaleAttachment();
+            imgSale.setImage(file.getBytes());
+            imgSale.setName(String.valueOf(path.getFileName()));
+
 
             switch (root) {
 
@@ -70,6 +81,13 @@ public class ProductImageController {
                     imgIngredient = recipeImageService.uploadIngredientImage(imgIngredient);
                     return ResponseEntity.ok(imgIngredient).getBody();
 
+                case "sale":
+
+                    // Print statement corresponding case
+                    System.out.println("upload sale");
+                    imgSale = saleAttachmenService.uploadRecipeImage(imgSale);
+                    return ResponseEntity.ok(imgSale).getBody();
+
                 // Case 4
                 // Default case
                 default:
@@ -82,7 +100,7 @@ public class ProductImageController {
             return ResponseEntity.ok(img).getBody();
 
         } catch (Exception e) {
-            throw new RuntimeException("Error uploading file");
+            throw new RuntimeException("Error uploading file"+ e.getMessage());
         }
     }
 
@@ -118,6 +136,15 @@ public class ProductImageController {
                     return ResponseEntity.ok()
                             .header("Content-Type", "image/jpeg")
                             .body(ingredientImage.getImage());
+
+                case "sale":
+                    // Print statement corresponding case
+                    System.out.println("upload sale");
+                    SaleAttachment saleImage = saleAttachmenService.getRecipeImageByName(filename);
+                    return ResponseEntity.ok()
+                            .header("Content-Type", "image/jpeg")
+                            .body(saleImage.getImage());
+
                 // Case 4
                 // Default case
                 default:
