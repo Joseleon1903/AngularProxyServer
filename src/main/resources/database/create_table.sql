@@ -98,3 +98,54 @@ CREATE TABLE dbo.CustomerMoral (
         FOREIGN KEY (CustomerId) REFERENCES dbo.Customers(Id)
         ON DELETE CASCADE
 );
+
+
+---tablas para manejo de notificaciones
+CREATE TABLE Notifications (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL, -- Usuario destinatario
+
+    Title VARCHAR(150) NOT NULL,
+    Message VARCHAR(500) NOT NULL,
+
+    Type VARCHAR(20) NOT NULL,
+    -- Ej: 'INFO', 'SUCCESS', 'WARNING', 'ERROR'
+
+    IsRead BIT DEFAULT 0,
+
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    ReadAt DATETIME NULL,
+
+    ReferenceId INT NULL,
+    -- ID opcional relacionado (ej: OrderId, ProductId)
+
+    ReferenceType VARCHAR(50) NULL
+    -- Ej: 'ORDER', 'PRODUCT', etc.
+);
+
+CREATE TABLE NotificationSettings (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+
+    EmailEnabled BIT DEFAULT 1,
+    PushEnabled BIT DEFAULT 1,
+    SmsEnabled BIT DEFAULT 0,
+
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE NotificationLogs (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    NotificationId INT NOT NULL,
+
+    Status VARCHAR(20), -- SENT, FAILED
+    ErrorMessage VARCHAR(500) NULL,
+
+    SentAt DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (NotificationId) REFERENCES Notifications(Id)
+);
+
+
+
+

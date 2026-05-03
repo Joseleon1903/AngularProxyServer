@@ -29,6 +29,10 @@ public class Recipe {
     @JsonManagedReference
     private List<Ingredient> ingredients = new ArrayList<>();
 
+    @OneToMany(mappedBy = "recipeStep", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<PreparationStep> preparationSteps = new ArrayList<>();
+
 
     // getters & setters
 
