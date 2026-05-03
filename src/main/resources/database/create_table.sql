@@ -61,3 +61,40 @@ CREATE TABLE Sales (
     PaymentMethod VARCHAR(50) NOT NULL,
     CreatedAt DATETIME DEFAULT GETDATE()
 );
+
+CREATE TABLE dbo.Customers (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+
+    CustomerType CHAR(1) NOT NULL, -- 'F' = Físico, 'M' = Moral
+
+    Phone VARCHAR(20) NOT NULL,
+    Email VARCHAR(100) NULL,
+
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    IsActive BIT DEFAULT 1,
+
+    CONSTRAINT CK_Customers_Type CHECK (CustomerType IN ('F','M'))
+);
+
+CREATE TABLE dbo.CustomerPhysical (
+    CustomerId INT PRIMARY KEY,
+
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    IdentificationNumber VARCHAR(30) NULL,
+
+    CONSTRAINT FK_CustomerPhysical_Customers
+        FOREIGN KEY (CustomerId) REFERENCES dbo.Customers(Id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE dbo.CustomerMoral (
+    CustomerId INT PRIMARY KEY,
+
+    BusinessName VARCHAR(150) NOT NULL,
+    RNC VARCHAR(20) NOT NULL,
+
+    CONSTRAINT FK_CustomerMoral_Customers
+        FOREIGN KEY (CustomerId) REFERENCES dbo.Customers(Id)
+        ON DELETE CASCADE
+);

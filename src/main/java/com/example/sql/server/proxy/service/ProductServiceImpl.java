@@ -4,7 +4,7 @@ import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.repository.CategoryRepository;
 import com.example.sql.server.proxy.repository.ProductRepository;
 import com.example.sql.server.proxy.repository.ProductTypeRepository;
-import com.example.sql.server.proxy.request.ProductCreationRequest;
+import com.example.sql.server.proxy.request.ProductRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(ProductCreationRequest productInput) {
+    public Product create(ProductRequest productInput) {
         System.out.println("product: "+productInput);
         Product product = new Product();
         product.setId(UUID.randomUUID());
@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(UUID id, Product product) {
+    public Product update(UUID id, ProductRequest product) {
         Product existing = findById(id);
 
         existing.setName(product.getName());
@@ -73,12 +73,13 @@ public class ProductServiceImpl implements ProductService {
         existing.setPriceCurrency(product.getPriceCurrency());
         existing.setProductionCostAmount(product.getProductionCostAmount());
         existing.setProductionCostCurrency(product.getProductionCostCurrency());
-        existing.setCategoryId(product.getCategoryId());
-        existing.setProductTypeId(product.getProductTypeId());
-        existing.setUnitId(product.getUnitId());
+
+        existing.setCategoryId(UUID.fromString(product.getCategoryId()));
+        existing.setProductTypeId(UUID.fromString(product.getProductTypeId()));
+//        existing.setUnitId(UUID.fromString(product.getUnitId()));
         existing.setUnitType(product.getUnitType());
         existing.setImageUrl(product.getImageUrl());
-        existing.setActive(product.getActive());
+        existing.setActive(product.isActive());
         existing.setUpdatedAtUtc(LocalDateTime.now());
 
         return productRepository.save(existing);

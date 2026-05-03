@@ -7,6 +7,7 @@ import com.example.sql.server.proxy.domain.SaleAttachment;
 import com.example.sql.server.proxy.service.ProductImageService;
 import com.example.sql.server.proxy.service.RecipeImageService;
 import com.example.sql.server.proxy.service.SaleAttachmenService;
+import com.example.sql.server.proxy.utils.ImageUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,19 +42,19 @@ public class ProductImageController {
 
             ProductImage img = new ProductImage();
             img.setImage(file.getBytes());
-            img.setName(String.valueOf(path.getFileName()));
+            img.setName(ImageUtil.generateImageName(root, "jpg"));
 
             RecipeImage imgRecipe = new RecipeImage();
             imgRecipe.setImage(file.getBytes());
-            imgRecipe.setName(String.valueOf(path.getFileName()));
+            imgRecipe.setName(ImageUtil.generateImageName(root, "jpg"));
 
             IngredientImage imgIngredient = new IngredientImage();
             imgIngredient.setImage(file.getBytes());
-            imgIngredient.setName(String.valueOf(path.getFileName()));
+            imgIngredient.setName(ImageUtil.generateImageName(root, "jpg"));
 
             SaleAttachment imgSale = new SaleAttachment();
             imgSale.setImage(file.getBytes());
-            imgSale.setName(String.valueOf(path.getFileName()));
+            imgSale.setName(ImageUtil.generateImageName(root, "jpg"));
 
 
             switch (root) {

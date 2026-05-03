@@ -5,8 +5,7 @@ import com.example.sql.server.proxy.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -18,8 +17,8 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<Category> findAll() {
-        return (List<Category>) repository.findAll();
+    public Set<Category> findAll() {
+        return new LinkedHashSet<>((Collection) repository.findAll());
     }
 
     @Override

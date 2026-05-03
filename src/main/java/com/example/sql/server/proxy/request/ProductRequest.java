@@ -3,8 +3,9 @@ package com.example.sql.server.proxy.request;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class ProductCreationRequest {
+public class ProductRequest {
 
+    private String productId;
     private String name;
     private String description;
 
@@ -129,15 +130,24 @@ public class ProductCreationRequest {
         this.imageUrl = imageUrl;
     }
 
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
     @Override
     public String toString() {
         return "ProductCreationRequest{" +
-                "name='" + name + '\'' +
+                "productId='" + productId + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", active=" + active +
-                ", categoryId=" + categoryId +
-                ", productTypeId=" + productTypeId +
-                ", unitId=" + unitId +
+                ", categoryId='" + categoryId + '\'' +
+                ", productTypeId='" + productTypeId + '\'' +
+                ", unitId='" + unitId + '\'' +
                 ", unitType=" + unitType +
                 ", priceAmount=" + priceAmount +
                 ", priceCurrency='" + priceCurrency + '\'' +

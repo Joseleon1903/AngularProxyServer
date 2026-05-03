@@ -3,11 +3,12 @@ package com.example.sql.server.proxy.service;
 import com.example.sql.server.proxy.domain.Category;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface CategoryService {
 
-    List<Category> findAll();
+    Set<Category> findAll();
 
     Category findById(UUID id);
 

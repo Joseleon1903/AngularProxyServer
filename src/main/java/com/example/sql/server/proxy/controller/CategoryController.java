@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +23,7 @@ public class CategoryController {
     // GET ALL
     // ============================
     @GetMapping
-    public ResponseEntity<List<Category>> getAll() {
+    public ResponseEntity<Set<Category>> getAll() {
         return ResponseEntity.ok(service.findAll());
     }
 

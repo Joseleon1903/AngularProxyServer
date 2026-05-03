@@ -1,11 +1,13 @@
 package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Product;
-import com.example.sql.server.proxy.request.ProductCreationRequest;
+import com.example.sql.server.proxy.request.ProductRequest;
+import com.example.sql.server.proxy.response.ProductResponse;
 import com.example.sql.server.proxy.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,13 +32,18 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody ProductCreationRequest product) {
+    public ResponseEntity<Product> create(@RequestBody ProductRequest product) {
         System.out.println(product);
-        return ResponseEntity.ok(service.create(product));
+        if(product.getProductId().isEmpty()){
+            System.out.println("id producto empty creando nuevo producto");
+            return ResponseEntity.ok(service.create(product));
+        }
+        System.out.println("actualizando producto");
+        return ResponseEntity.ok(service.update(UUID.fromString(product.getProductId()), product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable UUID id, @RequestBody Product product) {
+    public ResponseEntity<Product> update(@PathVariable UUID id, @RequestBody ProductRequest product) {
         return ResponseEntity.ok(service.update(id, product));
     }
 
