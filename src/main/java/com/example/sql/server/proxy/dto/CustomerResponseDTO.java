@@ -2,8 +2,10 @@ package com.example.sql.server.proxy.dto;
 
 import lombok.Builder;
 
+import java.io.Serializable;
+
 @Builder
-public class CustomerResponseDTO {
+public class CustomerResponseDTO implements Serializable {
 
     private Integer id;
     private String type;

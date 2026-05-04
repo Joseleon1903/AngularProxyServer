@@ -1,7 +1,9 @@
 package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Recipe;
+import com.example.sql.server.proxy.dto.RecipeResponseDTO;
 import com.example.sql.server.proxy.service.RecipeService;
+import com.example.sql.server.proxy.utils.RecipeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +27,9 @@ public class RecipeController {
 
     // 📋 Listar
     @GetMapping
-    public List<Recipe> findAll() {
-        return service.findAll();
+    public List<RecipeResponseDTO> findAll() {
+        List<RecipeResponseDTO> response = RecipeUtils.toList(service.findAll());
+        return response;
     }
 
     // 🔍 Obtener por id

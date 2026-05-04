@@ -1,6 +1,8 @@
 package com.example.sql.server.proxy.dto;
 
-public class CustomerRequestDTO {
+import java.io.Serializable;
+
+public class CustomerRequestDTO implements Serializable {
 
     private String type; // "F" o "M"
 
