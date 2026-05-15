@@ -14,10 +14,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
-//                        .allowedMethods("*")
-//                        .allowedHeaders("*")
-//                        .allowedOrigins("https://0a26-2001-1308-20ea-8100-e17e-e130-6966-f1de.ngrok-free.app")
+                        // Permite localhost y cualquier subdominio de ngrok-free.app
+                        .allowedOriginPatterns(
+                                "http://localhost:4200",
+                                "https://*.ngrok-free.app"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*");
             }

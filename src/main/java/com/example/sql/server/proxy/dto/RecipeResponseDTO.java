@@ -1,6 +1,10 @@
 package com.example.sql.server.proxy.dto;
 
+import com.example.sql.server.proxy.domain.Ingredient;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class RecipeResponseDTO implements Serializable {
@@ -12,6 +16,8 @@ public class RecipeResponseDTO implements Serializable {
     private String prepTime;
     private String yield;
     private String difficulty;
+
+    private List<Ingredient> ingredients;
 
     public RecipeResponseDTO(String name, String image, String tag, String prepTime, String yield, String difficulty) {
         this.name = name;
@@ -79,18 +85,29 @@ public class RecipeResponseDTO implements Serializable {
         this.id = id;
     }
 
+    public List<Ingredient> getIngredients() {
+        if(this.ingredients == null){
+            this.ingredients = new ArrayList<>();
+        }
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     @Override
     public String toString() {
         return "RecipeResponseDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
                 ", tag='" + tag + '\'' +
                 ", prepTime='" + prepTime + '\'' +
                 ", yield='" + yield + '\'' +
                 ", difficulty='" + difficulty + '\'' +
+                ", ingredients=" + ingredients +
                 '}';
     }
-
-
 
 }

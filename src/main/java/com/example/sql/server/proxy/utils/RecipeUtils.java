@@ -1,5 +1,6 @@
 package com.example.sql.server.proxy.utils;
 
+import com.example.sql.server.proxy.domain.Ingredient;
 import com.example.sql.server.proxy.domain.Recipe;
 import com.example.sql.server.proxy.dto.RecipeResponseDTO;
 
@@ -11,6 +12,7 @@ public class RecipeUtils {
     public static List<RecipeResponseDTO> toList(List<Recipe> entities){
         System.out.println("entering RecipeUtils:toList");
         List<RecipeResponseDTO> reponse = new ArrayList<>();
+
         entities.forEach( ent ->{
             reponse.add(toType(ent));
         });
@@ -20,6 +22,9 @@ public class RecipeUtils {
 
     public static RecipeResponseDTO toType(Recipe entity){
         System.out.println("entering RecipeUtils:toList");
+
+        System.out.println("ingrediente Quantity: "+ entity.getIngredients().size());
+
         RecipeResponseDTO dto =  new RecipeResponseDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -28,6 +33,9 @@ public class RecipeUtils {
         dto.setPrepTime(entity.getPrepTime());
         dto.setYield(entity.getYield());
         dto.setDifficulty(entity.getDifficulty());
+        for (Ingredient ind : entity.getIngredients()){
+            dto.getIngredients().add(ind);
+        }
         return dto;
     }
 
