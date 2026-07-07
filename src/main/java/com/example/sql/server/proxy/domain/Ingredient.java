@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Ingredients")
+@Table(name = "Ingredients", schema = "WebApp")
 public class Ingredient {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     private String name;
     private String urlImage;
@@ -29,11 +29,12 @@ public class Ingredient {
 
     // getters & setters
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

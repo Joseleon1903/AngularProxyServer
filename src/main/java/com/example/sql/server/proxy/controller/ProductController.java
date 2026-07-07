@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable UUID id) {
+    public ResponseEntity<Product> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -39,16 +39,16 @@ public class ProductController {
             return ResponseEntity.ok(service.create(product));
         }
         System.out.println("actualizando producto");
-        return ResponseEntity.ok(service.update(UUID.fromString(product.getProductId()), product));
+        return ResponseEntity.ok(service.update(Long.parseLong(product.getProductId()), product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable UUID id, @RequestBody ProductRequest product) {
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody ProductRequest product) {
         return ResponseEntity.ok(service.update(id, product));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         System.out.println("Entring in delete product");
         service.delete(id);
         return ResponseEntity.noContent().build();

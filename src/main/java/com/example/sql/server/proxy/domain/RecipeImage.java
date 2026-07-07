@@ -2,16 +2,17 @@ package com.example.sql.server.proxy.domain;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
-@Table(name = "RecipesImages")
-public class RecipeImage {
+@Table(name = "RecipesImages" , schema = "WebApp")
+public class RecipeImage implements Serializable {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -20,7 +21,7 @@ public class RecipeImage {
     @Column(name = "Image", columnDefinition = "VARBINARY(MAX)")
     private byte[] image;
 
-    public RecipeImage(UUID id, String name, byte[] image) {
+    public RecipeImage(Long id, String name, byte[] image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -28,11 +29,11 @@ public class RecipeImage {
 
     public RecipeImage() {}
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

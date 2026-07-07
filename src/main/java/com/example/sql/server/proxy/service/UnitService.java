@@ -9,13 +9,13 @@ public interface UnitService {
 
     List<Unit> findAll();
 
-    Unit findById(UUID id);
+    Unit findById(Long id);
 
     Unit create(Unit unit);
 
-    Unit update(UUID id, Unit unit);
+    Unit update(Long id, Unit unit);
 
-    void delete(UUID id);
+    void delete(Long id);
 
 
 }

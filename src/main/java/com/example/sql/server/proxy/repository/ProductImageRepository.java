@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface ProductImageRepository extends JpaRepository<ProductImage, UUID> {
+public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
 
     ProductImage getByName(String name);
 }

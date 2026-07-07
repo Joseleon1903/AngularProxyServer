@@ -1,36 +1,34 @@
 package com.example.sql.server.proxy.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Products", schema = "Catalog")
+@Table(name = "Products", schema = "WebApp")
 public class Product {
 
     @Id
+    @GeneratedValue
     @Column(name = "Id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @Column(name = "TenantId", nullable = false)
     private UUID tenantId;
 
-    @Column(name = "CategoryId", nullable = false)
-    private UUID categoryId;
+    @ManyToOne
+    @JoinColumn(name = "CategoryId", nullable = false)
+    private Category categoryId;
 
-    @Column(name = "ProductTypeId", nullable = false)
-    private UUID productTypeId;
+    @ManyToOne
+    @JoinColumn(name = "ProductTypeId", nullable = false)
+    private ProductType productTypeId;
 
-    @Column(name = "UnitId", nullable = false)
-    private UUID unitId;
-
-    @Column(name = "UnitType", nullable = false)
-    private Integer unitType;
+    @ManyToOne
+    @JoinColumn(name = "UnitId")
+    private Unit unitId;
 
     @Column(name = "Name", nullable = false, length = 120)
     private String name;
@@ -78,11 +76,11 @@ public class Product {
     // (puedes generar con IDE o usar Lombok)
 
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,36 +92,28 @@ public class Product {
         this.tenantId = tenantId;
     }
 
-    public UUID getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(UUID categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 
-    public UUID getProductTypeId() {
+    public ProductType getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(UUID productTypeId) {
+    public void setProductTypeId(ProductType productTypeId) {
         this.productTypeId = productTypeId;
     }
 
-    public UUID getUnitId() {
+    public Unit getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(UUID unitId) {
+    public void setUnitId(Unit unitId) {
         this.unitId = unitId;
-    }
-
-    public Integer getUnitType() {
-        return unitType;
-    }
-
-    public void setUnitType(Integer unitType) {
-        this.unitType = unitType;
     }
 
     public String getName() {
@@ -238,7 +228,6 @@ public class Product {
                 ", categoryId=" + categoryId +
                 ", productTypeId=" + productTypeId +
                 ", unitId=" + unitId +
-                ", unitType=" + unitType +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", priceAmount=" + priceAmount +

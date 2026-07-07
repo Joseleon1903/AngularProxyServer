@@ -22,14 +22,14 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category findById(UUID id) {
+    public Category findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
     @Override
     public Category create(Category category) {
-        category.setId(UUID.randomUUID());
+//        category.setId(UUID.randomUUID());
         category.setCreatedAtUtc(LocalDateTime.now());
         category.setUpdatedAtUtc(LocalDateTime.now());
         category.setIsDeleted(false);
@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category update(UUID id, Category category) {
+    public Category update(Long id, Category category) {
         Category existing = findById(id);
 
         existing.setName(category.getName());
@@ -50,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Long id) {
         Category existing = findById(id);
 
         // 🔥 Soft Delete

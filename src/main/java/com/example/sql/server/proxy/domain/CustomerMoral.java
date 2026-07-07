@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CustomerMoral", schema = "dbo")
+@Table(name = "CustomerMoral", schema = "WebApp")
 @PrimaryKeyJoinColumn(name = "CustomerId")
 public class CustomerMoral extends Customer{
 

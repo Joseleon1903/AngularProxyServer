@@ -1,6 +1,7 @@
 package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Sale;
+import com.example.sql.server.proxy.request.CreateSaleRequest;
 import com.example.sql.server.proxy.service.SaleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class SaleController {
 
     // GET: obtener por id
     @GetMapping("/{id}")
-    public ResponseEntity<Sale> getById(@PathVariable UUID id) {
+    public ResponseEntity<Sale> getById(@PathVariable Long id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -34,19 +35,24 @@ public class SaleController {
 
     // POST: crear venta
     @PostMapping
-    public ResponseEntity<Sale> create(@RequestBody Sale sale) {
-        return ResponseEntity.ok(service.save(sale));
+    public ResponseEntity<CreateSaleRequest> create(@RequestBody CreateSaleRequest sale) {
+        System.out.println("entering in create sale ");
+        System.out.println("inout "+ sale);
+
+        return ResponseEntity.ok(sale);
+
+        //return ResponseEntity.ok(service.save(sale));
     }
 
     // PUT: actualizar
     @PutMapping("/{id}")
-    public ResponseEntity<Sale> update(@PathVariable UUID id, @RequestBody Sale sale) {
+    public ResponseEntity<Sale> update(@PathVariable Long id, @RequestBody Sale sale) {
         return ResponseEntity.ok(service.update(id, sale));
     }
 
     // DELETE: eliminar
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

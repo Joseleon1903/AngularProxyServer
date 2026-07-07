@@ -31,7 +31,7 @@ public class CategoryController {
     // GET BY ID
     // ============================
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getById(@PathVariable UUID id) {
+    public ResponseEntity<Category> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -48,7 +48,7 @@ public class CategoryController {
     // ============================
     @PutMapping("/{id}")
     public ResponseEntity<Category> update(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestBody Category category) {
         return ResponseEntity.ok(service.update(id, category));
     }
@@ -57,7 +57,7 @@ public class CategoryController {
     // DELETE (SOFT DELETE)
     // ============================
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

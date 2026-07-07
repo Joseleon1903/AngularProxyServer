@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Categories", schema = "Catalog")
+@Table(name = "Categories", schema = "WebApp")
 public class Category {
 
     @Id
     @Column(name = "Id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @Column(name = "TenantId", nullable = false)
     private UUID tenantId;
@@ -47,7 +47,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(UUID id, UUID tenantId, String name, String description,
+    public Category(Long id, UUID tenantId, String name, String description,
                     Boolean isActive, Boolean isDeleted,
                     LocalDateTime createdAtUtc, LocalDateTime updatedAtUtc,
                     LocalDateTime deletedAtUtc) {
@@ -66,11 +66,12 @@ public class Category {
     // GETTERS Y SETTERS
     // ============================
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

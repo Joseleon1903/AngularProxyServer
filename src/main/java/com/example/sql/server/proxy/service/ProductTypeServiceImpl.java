@@ -23,14 +23,14 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public ProductType findById(UUID id) {
+    public ProductType findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ProductType not found"));
     }
 
     @Override
     public ProductType create(ProductType productType) {
-        productType.setId(UUID.randomUUID());
+//        productType.setId(UUID.randomUUID());
         productType.setCreatedAtUtc(LocalDateTime.now());
         productType.setUpdatedAtUtc(LocalDateTime.now());
         productType.setIsDeleted(false);
@@ -39,7 +39,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public ProductType update(UUID id, ProductType productType) {
+    public ProductType update(Long id, ProductType productType) {
         ProductType existing = findById(id);
 
         existing.setName(productType.getName());
@@ -52,7 +52,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Long id) {
         ProductType existing = findById(id);
 
         // 🔥 Soft delete

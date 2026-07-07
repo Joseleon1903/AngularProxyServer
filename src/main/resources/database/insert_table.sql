@@ -13,6 +13,108 @@ DECLARE @Yeast UNIQUEIDENTIFIER = NEWID();
 DECLARE @Salt UNIQUEIDENTIFIER = NEWID();
 
 -- =========================================
+-- INSERT Category
+-- =========================================
+INSERT INTO [WebApp].[Categories]
+(
+    IsActive,
+    IsDeleted,
+    CreatedAtUtc,
+    DeletedAtUtc,
+    Id,
+    UpdatedAtUtc,
+    TenantId,
+    Description,
+    Name
+)
+VALUES
+(1, 0, GETUTCDATE(), '1900-01-01', 1, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Panes elaborados diariamente.', 'Panes'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 2, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Pasteles para cumpleaños y celebraciones.', 'Pasteles'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 3, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Galletas artesanales de distintos sabores.', 'Galletas'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 4, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Postres tradicionales y gourmet.', 'Postres'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 5, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Cupcakes decorados para eventos.', 'Cupcakes'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 6, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Donas glaseadas, rellenas y especiales.', 'Donas'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 7, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Empanadas dulces y saladas.', 'Empanadas'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 8, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Bebidas frías y calientes.', 'Bebidas'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 9, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos de temporada y promociones.', 'Especiales'),
+
+(1, 0, GETUTCDATE(), '1900-01-01', 10, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Accesorios e insumos para repostería.', 'Accesorios');
+
+-- =========================================
+-- INSERT Units
+-- =========================================
+INSERT INTO [WebApp].[Units]
+(
+    ConversionFactorToBase,
+    IsBaseUnit,
+    Id,
+    Code,
+    Name,
+    UnitType
+)
+VALUES
+-- Peso
+(1.00,    1, 1,  'KG',  'Kilogramo',       'WEIGHT'),
+(0.001,   0, 2,  'G',   'Gramo',           'WEIGHT'),
+(1000.00, 0, 3,  'TON', 'Tonelada',        'WEIGHT'),
+
+-- Volumen
+(1.00,    1, 4,  'L',   'Litro',           'VOLUME'),
+(0.001,   0, 5,  'ML',  'Mililitro',       'VOLUME'),
+(3.785,   0, 6,  'GAL', 'Galón',           'VOLUME'),
+
+-- Cantidad
+(1.00,    1, 7,  'UND', 'Unidad',          'QUANTITY'),
+(12.00,   0, 8,  'DOC', 'Docena',          'QUANTITY'),
+(24.00,   0, 9,  'CJ',  'Caja (24 uds)',   'QUANTITY'),
+(100.00,  0, 10, 'PK',  'Paquete (100)',   'QUANTITY');
+
+-- =========================================
+-- INSERT ProductTypes
+-- =========================================
+INSERT INTO [WebApp].[ProductTypes]
+(
+    IsActive,
+    IsDefault,
+    IsDeleted,
+    CreatedAtUtc,
+    DeletedAtUtc,
+    Id,
+    UpdatedAtUtc,
+    TenantId,
+    Description,
+    Name
+)
+VALUES
+(1, 1, 0, GETUTCDATE(), '1900-01-01', 1, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Tipo de producto predeterminado.', 'General'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 2, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos horneados diariamente.', 'Panadería'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 3, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos de repostería fina.', 'Repostería'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 4, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Postres fríos y calientes.', 'Postres'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 5, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Bebidas para acompañar los productos.', 'Bebidas'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 6, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos preparados bajo pedido.', 'Personalizados'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 7, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos de temporada.', 'Temporada'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 8, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos premium con ingredientes especiales.', 'Premium'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 9, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Productos congelados para hornear.', 'Congelados'),
+
+(1, 0, 0, GETUTCDATE(), '1900-01-01', 10, GETUTCDATE(), '11111111-1111-1111-1111-111111111111', 'Complementos y accesorios.', 'Complementos');
+
+-- =========================================
 -- INSERT INGREDIENTS
 -- =========================================
 INSERT INTO Ingredients (Id, Name, UrlImage) VALUES
@@ -234,3 +336,103 @@ INSERT INTO dbo.Customers (CustomerType, Phone, Email)
 VALUES ('F', '809-555-0010', 'elena.ruiz@email.com');
 DECLARE @Id10 INT = SCOPE_IDENTITY();
 INSERT INTO dbo.CustomerPhysical VALUES (@Id10, 'Elena', 'Ruiz', NULL);
+
+--- categpory insert
+INSERT INTO [Catalog].[Categories]
+(
+    Id,
+    CreatedAtUtc,
+    DeletedAtUtc,
+    Description,
+    IsActive,
+    IsDeleted,
+    Name,
+    TenantId,
+    UpdatedAtUtc
+)
+VALUES
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Panes tradicionales y artesanales.', 1, 0, 'Panes', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Bizcochos y pasteles para toda ocasión.', 1, 0, 'Pasteles', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Galletas dulces y saladas.', 1, 0, 'Galletas', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Postres individuales.', 1, 0, 'Postres', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Bebidas frías y calientes.', 1, 0, 'Bebidas', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Empanadas y productos horneados salados.', 1, 0, 'Empanadas', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Sandwiches y bocadillos.', 1, 0, 'Sandwiches', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Productos preparados para desayuno.', 1, 0, 'Desayunos', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Productos de temporada.', 1, 0, 'Temporada', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Dulces y golosinas.', 1, 0, 'Dulces', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Ingredientes para producción.', 1, 0, 'Ingredientes', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Harinas y mezclas especiales.', 1, 0, 'Harinas', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Rellenos y coberturas.', 1, 0, 'Rellenos', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Productos congelados.', 1, 0, 'Congelados', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Panes integrales y saludables.', 1, 0, 'Saludables', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Productos sin azúcar.', 1, 0, 'Sin Azúcar', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Productos sin gluten.', 1, 0, 'Sin Gluten', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Promociones y ofertas especiales.', 1, 0, 'Promociones', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Accesorios y utensilios.', 1, 0, 'Accesorios', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Otros productos.', 1, 0, 'Otros', '00000000-0000-0000-0000-000000000000', GETUTCDATE());
+
+--- product type
+INSERT INTO [Catalog].[ProductTypes]
+(
+    Id,
+    CreatedAtUtc,
+    DeletedAtUtc,
+    Description,
+    IsActive,
+    IsDefault,
+    IsDeleted,
+    Name,
+    TenantId,
+    UpdatedAtUtc
+)
+VALUES
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto terminado listo para la venta.', 1, 1, 0, 'Producto Terminado', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Ingrediente utilizado en la elaboración de productos.', 1, 0, 0, 'Ingrediente', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Materia prima utilizada en producción.', 1, 0, 0, 'Materia Prima', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto semielaborado pendiente de finalizar.', 1, 0, 0, 'Producto Semielaborado', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Bebida preparada para la venta.', 1, 0, 0, 'Bebida', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Postre elaborado.', 1, 0, 0, 'Postre', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Pan elaborado.', 1, 0, 0, 'Pan', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Pastel o bizcocho.', 1, 0, 0, 'Pastel', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto congelado.', 1, 0, 0, 'Congelado', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto empacado para distribución.', 1, 0, 0, 'Empacado', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Accesorio o utensilio para la venta.', 1, 0, 0, 'Accesorio', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Servicio ofrecido por el negocio.', 1, 0, 0, 'Servicio', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto promocional.', 1, 0, 0, 'Promoción', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto de temporada.', 1, 0, 0, 'Temporada', '00000000-0000-0000-0000-000000000000', GETUTCDATE()),
+
+(NEWID(), GETUTCDATE(), '1900-01-01', 'Producto personalizado por encargo.', 1, 0, 0, 'Personalizado', '00000000-0000-0000-0000-000000000000', GETUTCDATE());
+

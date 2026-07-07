@@ -5,11 +5,10 @@ import com.example.sql.server.proxy.domain.Ingredient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class RecipeResponseDTO implements Serializable {
 
-    private UUID id;
+    private Long id;
     private String name;
     private String image;
     private String tag;
@@ -77,11 +76,11 @@ public class RecipeResponseDTO implements Serializable {
         this.difficulty = difficulty;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

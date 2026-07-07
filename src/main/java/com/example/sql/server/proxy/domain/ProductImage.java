@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ProductsImages")
+@Table(name = "ProductsImages", schema = "WebApp")
 public class ProductImage {
 
         @Id
         @GeneratedValue
-        private UUID id;
+        private Long id;
 
         @Column(nullable = false)
         private String name;
@@ -28,8 +28,13 @@ public class ProductImage {
             this.image = image;
         }
 
-        // 🔹 Getters y Setters
-        public UUID getId() { return id; }
+        public Long getId() {
+                return id;
+        }
+
+        public void setId(Long id) {
+                this.id = id;
+        }
 
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }

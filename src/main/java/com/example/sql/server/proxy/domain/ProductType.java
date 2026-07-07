@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ProductTypes", schema = "Catalog")
+@Table(name = "ProductTypes", schema = "WebApp")
 public class ProductType {
 
     @Id
     @Column(name = "Id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @Column(name = "TenantId", nullable = false)
     private UUID tenantId;
@@ -46,7 +46,7 @@ public class ProductType {
     public ProductType() {
     }
 
-    public ProductType(UUID id, UUID tenantId, String name, String description,
+    public ProductType(Long id, UUID tenantId, String name, String description,
                        Boolean isActive, Boolean isDefault, Boolean isDeleted,
                        LocalDateTime createdAtUtc, LocalDateTime updatedAtUtc,
                        LocalDateTime deletedAtUtc) {
@@ -66,11 +66,12 @@ public class ProductType {
     // GETTERS Y SETTERS
     // ============================
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -24,7 +24,7 @@ public class SaleServiceImpl implements SaleService{
     }
 
     // Obtener por ID
-    public Optional<Sale> findById(UUID id) {
+    public Optional<Sale> findById(Long id) {
         return repository.findById(id);
     }
 
@@ -35,7 +35,7 @@ public class SaleServiceImpl implements SaleService{
     }
 
     // Actualizar venta
-    public Sale update(UUID id, Sale sale) {
+    public Sale update(Long id, Sale sale) {
         Sale existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sale not found"));
 
@@ -51,7 +51,7 @@ public class SaleServiceImpl implements SaleService{
     }
 
     // Eliminar venta
-    public void delete(UUID id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 

@@ -15,11 +15,11 @@ public interface RecipeService {
     public List<Recipe> findAll();
 
     // 🔍 Buscar por id
-    public Recipe findById(UUID id);
+    public Recipe findById(Long id);
 
     // ✏️ Actualizar
-    public Recipe update(UUID id, Recipe updated);
+    public Recipe update(Long id, Recipe updated);
 
     // ❌ Eliminar
-    public void delete(UUID id);
+    public void delete(Long id);
 }

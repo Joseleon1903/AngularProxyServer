@@ -30,7 +30,7 @@ public class ProductTypeController {
     // GET BY ID
     // ============================
     @GetMapping("/{id}")
-    public ResponseEntity<ProductType> getById(@PathVariable UUID id) {
+    public ResponseEntity<ProductType> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -47,7 +47,7 @@ public class ProductTypeController {
     // ============================
     @PutMapping("/{id}")
     public ResponseEntity<ProductType> update(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestBody ProductType productType) {
         return ResponseEntity.ok(service.update(id, productType));
     }
@@ -56,7 +56,7 @@ public class ProductTypeController {
     // DELETE (SOFT DELETE)
     // ============================
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

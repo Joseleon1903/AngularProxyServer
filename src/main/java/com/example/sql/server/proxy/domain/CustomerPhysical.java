@@ -3,7 +3,7 @@ package com.example.sql.server.proxy.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "CustomerPhysical", schema = "dbo")
+@Table(name = "CustomerPhysical", schema = "WebApp")
 @PrimaryKeyJoinColumn(name = "CustomerId")
 public class CustomerPhysical extends Customer {
 

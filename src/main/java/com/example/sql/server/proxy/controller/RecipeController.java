@@ -7,7 +7,6 @@ import com.example.sql.server.proxy.utils.RecipeUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -34,19 +33,19 @@ public class RecipeController {
 
     // 🔍 Obtener por id
     @GetMapping("/{id}")
-    public Recipe findById(@PathVariable UUID id) {
+    public Recipe findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     // ✏️ Actualizar
     @PutMapping("/{id}")
-    public Recipe update(@PathVariable UUID id, @RequestBody Recipe recipe) {
+    public Recipe update(@PathVariable Long id, @RequestBody Recipe recipe) {
         return service.update(id, recipe);
     }
 
     // ❌ Eliminar
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
     }
 

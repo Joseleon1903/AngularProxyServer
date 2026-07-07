@@ -10,13 +10,13 @@ public interface CategoryService {
 
     Set<Category> findAll();
 
-    Category findById(UUID id);
+    Category findById(Long id);
 
     Category create(Category category);
 
-    Category update(UUID id, Category category);
+    Category update(Long id, Category category);
 
-    void delete(UUID id);
+    void delete(Long id);
 
 
 }

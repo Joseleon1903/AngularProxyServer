@@ -30,7 +30,7 @@ public class UnitController {
     // GET BY ID
     // ============================
     @GetMapping("/{id}")
-    public ResponseEntity<Unit> getById(@PathVariable UUID id) {
+    public ResponseEntity<Unit> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -47,7 +47,7 @@ public class UnitController {
     // ============================
     @PutMapping("/{id}")
     public ResponseEntity<Unit> update(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             @RequestBody Unit unit) {
         return ResponseEntity.ok(service.update(id, unit));
     }
@@ -56,7 +56,7 @@ public class UnitController {
     // DELETE
     // ============================
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

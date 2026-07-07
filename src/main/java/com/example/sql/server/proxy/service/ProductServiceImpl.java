@@ -18,10 +18,14 @@ public class ProductServiceImpl implements ProductService {
 
     private final CategoryRepository categoryRepository;
 
+    private final ProductTypeRepository productTypeRepository;
+
+
     public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository,
                               ProductTypeRepository productTypeRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.productTypeRepository= productTypeRepository;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(UUID id) {
+    public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
@@ -39,17 +43,22 @@ public class ProductServiceImpl implements ProductService {
     public Product create(ProductRequest productInput) {
         System.out.println("product: "+productInput);
         Product product = new Product();
-        product.setId(UUID.randomUUID());
+//        product.setId(UUID.randomUUID());
         product.setTenantId(UUID.randomUUID());
         product.setCreatedAtUtc(LocalDateTime.now());
         product.setUpdatedAtUtc(LocalDateTime.now());
         product.setDeleted(false);
 
-        product.setCategoryId(UUID.fromString(productInput.getCategoryId()));
-        product.setProductTypeId(UUID.fromString(productInput.getProductTypeId()));
+        Long categoryId = Long.parseLong(productInput.getCategoryId());
+        System.out.println("buscar category: "+ categoryId);
+        product.setCategoryId(categoryRepository.findById(categoryId).get());
+
+        Long productTypeId = Long.parseLong(productInput.getProductTypeId());
+        System.out.println("buscar productTypeId: "+ productTypeId);
+        product.setProductTypeId(productTypeRepository.findById(productTypeId).get());
+
         product.setName(productInput.getName());
-        product.setUnitId(UUID.fromString("DFC86DA2-E1B9-4182-563B-08DE931F0025"));
-        product.setUnitType(1);
+//        product.setUnitId(UUID.fromString("DFC86DA2-E1B9-4182-563B-08DE931F0025"));
         product.setDescription(productInput.getDescription());
         product.setPriceAmount(productInput.getPriceAmount());
         product.setPriceCurrency(productInput.getPriceCurrency());
@@ -64,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(UUID id, ProductRequest product) {
+    public Product update(Long id, ProductRequest product) {
         Product existing = findById(id);
 
         existing.setName(product.getName());
@@ -74,10 +83,12 @@ public class ProductServiceImpl implements ProductService {
         existing.setProductionCostAmount(product.getProductionCostAmount());
         existing.setProductionCostCurrency(product.getProductionCostCurrency());
 
-        existing.setCategoryId(UUID.fromString(product.getCategoryId()));
-        existing.setProductTypeId(UUID.fromString(product.getProductTypeId()));
+        Long categoryId = Long.parseLong(product.getCategoryId());
+        existing.setCategoryId(categoryRepository.findById(categoryId).get());
+
+        Long productTypeId = Long.parseLong(product.getProductTypeId());
+        existing.setProductTypeId(productTypeRepository.findById(productTypeId).get());
 //        existing.setUnitId(UUID.fromString(product.getUnitId()));
-        existing.setUnitType(product.getUnitType());
         existing.setImageUrl(product.getImageUrl());
         existing.setActive(product.isActive());
         existing.setUpdatedAtUtc(LocalDateTime.now());
@@ -86,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Long id) {
         Product existing = findById(id);
 
 //        // 🔥 Soft delete

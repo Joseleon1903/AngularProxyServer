@@ -7,12 +7,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Sales")
+@Table(name = "Sales" , schema = "WebApp")
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "SaleDate", nullable = false)
     private LocalDate saleDate;
@@ -44,11 +44,11 @@ public class Sale {
 
     // ====== Getters y Setters ======
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

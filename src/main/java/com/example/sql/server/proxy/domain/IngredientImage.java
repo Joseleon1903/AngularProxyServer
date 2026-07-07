@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
-@Table(name = "IngredientsImages")
+@Table(name = "IngredientsImages", schema = "WebApp")
 public class IngredientImage {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -20,7 +20,7 @@ public class IngredientImage {
     @Column(name = "Image", columnDefinition = "VARBINARY(MAX)")
     private byte[] image;
 
-    public IngredientImage(UUID id, String name, byte[] image) {
+    public IngredientImage(Long id, String name, byte[] image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -28,11 +28,11 @@ public class IngredientImage {
 
     public IngredientImage() {}
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

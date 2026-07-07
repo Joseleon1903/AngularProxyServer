@@ -22,19 +22,19 @@ public class UnitServiceImpl  implements UnitService{
     }
 
     @Override
-    public Unit findById(UUID id) {
+    public Unit findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unit not found"));
     }
 
     @Override
     public Unit create(Unit unit) {
-        unit.setId(UUID.randomUUID());
+//        unit.setId(UUID.randomUUID());
         return repository.save(unit);
     }
 
     @Override
-    public Unit update(UUID id, Unit unit) {
+    public Unit update(Long id, Unit unit) {
         Unit existing = findById(id);
 
         existing.setCode(unit.getCode());
@@ -47,7 +47,7 @@ public class UnitServiceImpl  implements UnitService{
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Long id) {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Unit not found");
         }

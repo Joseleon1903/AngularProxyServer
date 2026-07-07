@@ -5,7 +5,6 @@ import com.example.sql.server.proxy.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RecipeServiceImpl implements RecipeService{
@@ -29,13 +28,13 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     // 🔍 Buscar por id
-    public Recipe findById(UUID id) {
+    public Recipe findById(Long id) {
         return recipeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe not found"));
     }
 
     // ✏️ Actualizar
-    public Recipe update(UUID id, Recipe updated) {
+    public Recipe update(Long id, Recipe updated) {
         Recipe existing = findById(id);
 
         existing.setName(updated.getName());
@@ -52,7 +51,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     // ❌ Eliminar
-    public void delete(UUID id) {
+    public void delete(Long id) {
         recipeRepository.deleteById(id);
     }
 }

@@ -10,13 +10,13 @@ public interface ProductTypeService {
 
     List<ProductType> findAll();
 
-    ProductType findById(UUID id);
+    ProductType findById(Long id);
 
     ProductType create(ProductType productType);
 
-    ProductType update(UUID id, ProductType productType);
+    ProductType update(Long id, ProductType productType);
 
-    void delete(UUID id);
+    void delete(Long id);
 
 
 }

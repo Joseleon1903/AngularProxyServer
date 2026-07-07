@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "notification_settings",
+@Table(name = "notification_settings", schema = "WebApp",
         uniqueConstraints = @UniqueConstraint(columnNames = "userId"))
 public class NotificationSettings {
 

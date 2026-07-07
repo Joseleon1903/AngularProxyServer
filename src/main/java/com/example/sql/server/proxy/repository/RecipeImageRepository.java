@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface RecipeImageRepository extends JpaRepository<RecipeImage, UUID> {
+public interface RecipeImageRepository extends JpaRepository<RecipeImage, Long> {
 
     RecipeImage getByName(String name);
 

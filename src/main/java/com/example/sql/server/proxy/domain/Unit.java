@@ -1,16 +1,18 @@
 package com.example.sql.server.proxy.domain;
 
 import jakarta.persistence.*;
+
+import javax.lang.model.type.UnionType;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Units", schema = "Catalog")
+@Table(name = "Units", schema = "WebApp")
 public class Unit {
 
     @Id
     @Column(name = "Id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @Column(name = "Code", nullable = false, columnDefinition = "nvarchar(max)")
     private String code;
@@ -19,7 +21,7 @@ public class Unit {
     private String name;
 
     @Column(name = "UnitType", nullable = false)
-    private Integer unitType;
+    private String unitType;
 
     @Column(name = "ConversionFactorToBase", nullable = false, precision = 18, scale = 2)
     private BigDecimal conversionFactorToBase;
@@ -34,7 +36,7 @@ public class Unit {
     public Unit() {
     }
 
-    public Unit(UUID id, String code, String name, Integer unitType,
+    public Unit(Long id, String code, String name, String unitType,
                 BigDecimal conversionFactorToBase, Boolean isBaseUnit) {
         this.id = id;
         this.code = code;
@@ -48,11 +50,11 @@ public class Unit {
     // GETTERS Y SETTERS
     // ============================
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,11 +74,11 @@ public class Unit {
         this.name = name;
     }
 
-    public Integer getUnitType() {
+    public String getUnitType() {
         return unitType;
     }
 
-    public void setUnitType(Integer unitType) {
+    public void setUnitType(String unitType) {
         this.unitType = unitType;
     }
 
@@ -94,5 +96,17 @@ public class Unit {
 
     public void setIsBaseUnit(Boolean baseUnit) {
         isBaseUnit = baseUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", unitType='" + unitType + '\'' +
+                ", conversionFactorToBase=" + conversionFactorToBase +
+                ", isBaseUnit=" + isBaseUnit +
+                '}';
     }
 }

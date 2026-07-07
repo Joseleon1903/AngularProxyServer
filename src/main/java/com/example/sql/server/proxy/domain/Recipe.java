@@ -3,18 +3,19 @@ package com.example.sql.server.proxy.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Recipes")
-public class Recipe {
+@Table(name = "Recipes" , schema = "WebApp")
+public class Recipe implements Serializable {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     private String name;
     private String imageUrl;
@@ -37,11 +38,11 @@ public class Recipe {
     // getters & setters
 
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

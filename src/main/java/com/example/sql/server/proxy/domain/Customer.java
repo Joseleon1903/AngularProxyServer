@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Customers", schema = "dbo")
+@Table(name = "Customers", schema = "WebApp")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Customer {
 
