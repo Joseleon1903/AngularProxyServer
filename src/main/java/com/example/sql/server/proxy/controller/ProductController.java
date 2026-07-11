@@ -2,14 +2,12 @@ package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.request.ProductRequest;
-import com.example.sql.server.proxy.response.ProductResponse;
 import com.example.sql.server.proxy.service.ProductService;
+import com.example.sql.server.proxy.utils.CommonsUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
@@ -34,12 +32,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody ProductRequest product) {
         System.out.println(product);
-        if(product.getProductId().isEmpty()){
+        if(!CommonsUtils.isValidId(product.getProductId())){
             System.out.println("id producto empty creando nuevo producto");
             return ResponseEntity.ok(service.create(product));
         }
         System.out.println("actualizando producto");
-        return ResponseEntity.ok(service.update(Long.parseLong(product.getProductId()), product));
+        return ResponseEntity.ok(service.update(product.getProductId(), product));
     }
 
     @PutMapping("/{id}")

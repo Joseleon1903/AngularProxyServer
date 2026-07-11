@@ -13,7 +13,7 @@ public class ProductUtils {
         if (product == null) return null;
 
         ProductResponse resp = new ProductResponse();
-        resp.setId(product.getId().toString());
+        resp.setId(product.getProductId().toString());
 
         return resp;
     }

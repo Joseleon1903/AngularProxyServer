@@ -13,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue
     @Column(name = "Id", nullable = false)
-    private Long id;
+    private Long productId;
 
     @Column(name = "TenantId", nullable = false)
     private UUID tenantId;
@@ -76,12 +76,12 @@ public class Product {
     // (puedes generar con IDE o usar Lombok)
 
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public UUID getTenantId() {
@@ -223,7 +223,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "id=" + productId +
                 ", tenantId=" + tenantId +
                 ", categoryId=" + categoryId +
                 ", productTypeId=" + productTypeId +

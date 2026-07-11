@@ -49,16 +49,11 @@ public class ProductServiceImpl implements ProductService {
         product.setUpdatedAtUtc(LocalDateTime.now());
         product.setDeleted(false);
 
-        Long categoryId = Long.parseLong(productInput.getCategoryId());
-        System.out.println("buscar category: "+ categoryId);
-        product.setCategoryId(categoryRepository.findById(categoryId).get());
+        product.setCategoryId(categoryRepository.findById(productInput.getCategoryId()).get());
 
-        Long productTypeId = Long.parseLong(productInput.getProductTypeId());
-        System.out.println("buscar productTypeId: "+ productTypeId);
-        product.setProductTypeId(productTypeRepository.findById(productTypeId).get());
+        product.setProductTypeId(productTypeRepository.findById(productInput.getProductTypeId()).get());
 
         product.setName(productInput.getName());
-//        product.setUnitId(UUID.fromString("DFC86DA2-E1B9-4182-563B-08DE931F0025"));
         product.setDescription(productInput.getDescription());
         product.setPriceAmount(productInput.getPriceAmount());
         product.setPriceCurrency(productInput.getPriceCurrency());
@@ -83,11 +78,9 @@ public class ProductServiceImpl implements ProductService {
         existing.setProductionCostAmount(product.getProductionCostAmount());
         existing.setProductionCostCurrency(product.getProductionCostCurrency());
 
-        Long categoryId = Long.parseLong(product.getCategoryId());
-        existing.setCategoryId(categoryRepository.findById(categoryId).get());
+        existing.setCategoryId(categoryRepository.findById(product.getCategoryId()).get());
 
-        Long productTypeId = Long.parseLong(product.getProductTypeId());
-        existing.setProductTypeId(productTypeRepository.findById(productTypeId).get());
+        existing.setProductTypeId(productTypeRepository.findById(product.getProductTypeId()).get());
 //        existing.setUnitId(UUID.fromString(product.getUnitId()));
         existing.setImageUrl(product.getImageUrl());
         existing.setActive(product.isActive());

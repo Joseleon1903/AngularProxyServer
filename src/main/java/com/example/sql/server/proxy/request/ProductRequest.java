@@ -5,14 +5,14 @@ import java.util.UUID;
 
 public class ProductRequest {
 
-    private String productId;
+    private Long productId;
     private String name;
     private String description;
 
     private boolean active;
 
-    private String categoryId;
-    private String productTypeId;
+    private Long categoryId;
+    private Long productTypeId;
     private String unitId;
 
     private Integer unitType;
@@ -50,19 +50,19 @@ public class ProductRequest {
         this.active = active;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getProductTypeId() {
+    public Long getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(String productTypeId) {
+    public void setProductTypeId(Long productTypeId) {
         this.productTypeId = productTypeId;
     }
 
@@ -130,11 +130,11 @@ public class ProductRequest {
         this.imageUrl = imageUrl;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
