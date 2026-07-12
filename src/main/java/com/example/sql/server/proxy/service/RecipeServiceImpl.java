@@ -41,11 +41,16 @@ public class RecipeServiceImpl implements RecipeService{
         existing.setImageUrl(updated.getImageUrl());
         existing.setTag(updated.getTag());
         existing.setPrepTime(updated.getPrepTime());
+        existing.setCookingTime(updated.getCookingTime());
         existing.setYield(updated.getYield());
         existing.setDifficulty(updated.getDifficulty());
 
-        // actualizar ingredientes
+        // actualizar ingredientes y preparetion steps
+        existing.getIngredients().clear();
+        existing.getIngredients().addAll(updated.getIngredients());
 
+        existing.getPreparationSteps().clear();
+        existing.getPreparationSteps().addAll(updated.getPreparationSteps());
 
         return recipeRepository.save(existing);
     }

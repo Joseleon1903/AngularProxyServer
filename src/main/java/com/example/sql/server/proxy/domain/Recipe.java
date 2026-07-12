@@ -21,6 +21,7 @@ public class Recipe implements Serializable {
     private String imageUrl;
     private String tag;
     private String prepTime;
+    private String cookingTime;
     private String yield;
     private String difficulty;
 
@@ -110,6 +111,22 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
     }
 
+    public List<PreparationStep> getPreparationSteps() {
+        return preparationSteps;
+    }
+
+    public void setPreparationSteps(List<PreparationStep> preparationSteps) {
+        this.preparationSteps = preparationSteps;
+    }
+
+    public String getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(String cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -118,10 +135,12 @@ public class Recipe implements Serializable {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", tag='" + tag + '\'' +
                 ", prepTime='" + prepTime + '\'' +
+                ", cookingTime='" + cookingTime + '\'' +
                 ", yield='" + yield + '\'' +
                 ", difficulty='" + difficulty + '\'' +
                 ", createdAt=" + createdAt +
                 ", ingredients=" + ingredients +
+                ", preparationSteps=" + preparationSteps +
                 '}';
     }
 }

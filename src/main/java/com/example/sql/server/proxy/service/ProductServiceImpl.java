@@ -81,7 +81,6 @@ public class ProductServiceImpl implements ProductService {
         existing.setCategoryId(categoryRepository.findById(product.getCategoryId()).get());
 
         existing.setProductTypeId(productTypeRepository.findById(product.getProductTypeId()).get());
-//        existing.setUnitId(UUID.fromString(product.getUnitId()));
         existing.setImageUrl(product.getImageUrl());
         existing.setActive(product.isActive());
         existing.setUpdatedAtUtc(LocalDateTime.now());
