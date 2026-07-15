@@ -35,11 +35,13 @@ public class SaleController {
 
     // POST: crear venta
     @PostMapping
-    public ResponseEntity<CreateSaleRequest> create(@RequestBody CreateSaleRequest sale) {
+    public ResponseEntity<Sale> create(@RequestBody CreateSaleRequest sale) {
         System.out.println("entering in create sale ");
-        System.out.println("inout "+ sale);
+        System.out.println("input "+ sale);
 
-        return ResponseEntity.ok(sale);
+        Sale saleOut = service.createSale(sale);
+
+        return ResponseEntity.ok(saleOut);
 
         //return ResponseEntity.ok(service.save(sale));
     }

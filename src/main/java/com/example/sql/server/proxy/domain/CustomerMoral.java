@@ -23,7 +23,7 @@ public class CustomerMoral extends Customer{
         super.setCustomerType(CustomerType.M);
     }
 
-    public CustomerMoral(Integer id, CustomerType customerType, String phone, String email, LocalDateTime createdAt, Boolean isActive, String businessName, String rnc) {
+    public CustomerMoral(Long id, CustomerType customerType, String phone, String email, LocalDateTime createdAt, Boolean isActive, String businessName, String rnc) {
         super(id, customerType, phone, email, createdAt, isActive);
         this.businessName = businessName;
         this.rnc = rnc;

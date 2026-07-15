@@ -1,27 +1,56 @@
-package com.example.sql.server.proxy.request;
+package com.example.sql.server.proxy.domain;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class SaleItemRequest implements Serializable {
+@Entity
+@Table(name = "SaleItem" , schema = "WebApp")
+public class SaleItem implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long saleItemId;
+
+    @Column(name = "productId", nullable = false)
     private Long productId;
-    private String productName;
-    private Integer quantity;
-    private BigDecimal unitPrice;
-    private BigDecimal subtotal;
-    private String imageUrl;
 
-    public SaleItemRequest(Long productId, String productName, Integer quantity, BigDecimal unitPrice, BigDecimal subtotal, String imageUrl) {
+    @Column(name = "productName", nullable = false)
+    private String productName;
+
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
+    @Column(name = "unitPrice", nullable = false)
+    private BigDecimal unitPrice;
+
+    @Column(name = "subtotal", nullable = false)
+    private BigDecimal subtotal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sales_id")
+    @JsonBackReference
+    private Sale sale;
+
+    public SaleItem(Long productId, String productName, Integer quantity, BigDecimal unitPrice, BigDecimal subtotal) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotal = subtotal;
-        this.imageUrl = imageUrl;
     }
 
-    public SaleItemRequest() {
+    public SaleItem() {
+    }
+
+    public Long getSaleItemId() {
+        return saleItemId;
+    }
+
+    public void setSaleItemId(Long saleItemId) {
+        this.saleItemId = saleItemId;
     }
 
     public Long getProductId() {
@@ -64,23 +93,16 @@ public class SaleItemRequest implements Serializable {
         this.subtotal = subtotal;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     @Override
     public String toString() {
-        return "SaleItemRequest{" +
-                "productId='" + productId + '\'' +
+        return "SaleItem{" +
+                "saleItemId=" + saleItemId +
+                ", productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 ", subtotal=" + subtotal +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", sale=" + sale +
                 '}';
     }
 }

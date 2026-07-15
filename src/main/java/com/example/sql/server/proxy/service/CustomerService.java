@@ -11,6 +11,6 @@ public interface CustomerService {
 
     List<CustomerResponseDTO> findAll();
 
-    CustomerResponseDTO findById(Integer id);
+    CustomerResponseDTO findById(Long id);
 
 }

@@ -60,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerResponseDTO findById(Integer id) {
+    public CustomerResponseDTO findById(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 

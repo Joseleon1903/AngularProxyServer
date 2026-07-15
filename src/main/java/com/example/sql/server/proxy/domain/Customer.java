@@ -11,7 +11,7 @@ public abstract class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "CustomerType", nullable = false, length = 1)
@@ -35,7 +35,7 @@ public abstract class Customer {
         this.isActive = true;
     }
 
-    public Customer(Integer id, CustomerType customerType, String phone, String email, LocalDateTime createdAt, Boolean isActive) {
+    public Customer(Long id, CustomerType customerType, String phone, String email, LocalDateTime createdAt, Boolean isActive) {
         this.id = id;
         this.customerType = customerType;
         this.phone = phone;
@@ -47,11 +47,11 @@ public abstract class Customer {
     public Customer() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

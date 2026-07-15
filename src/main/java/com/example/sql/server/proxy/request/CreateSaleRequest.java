@@ -1,6 +1,7 @@
 package com.example.sql.server.proxy.request;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,14 +14,14 @@ public class CreateSaleRequest  implements Serializable {
     private Long customerId;
     private String saleDescripcion;
     private List<SaleItemRequest> products;
-    private Double totalAmount;
+    private BigDecimal totalAmount;
     private PaymentMethod paymentMethod;
     private LocalDateTime createdAt;
     private String documentUrl;
 
 
     public CreateSaleRequest(Long id, LocalDate saleDate, String referenceNumber, Long customerId, String saleDescripcion,
-                             List<SaleItemRequest> products, Double totalAmount, PaymentMethod paymentMethod,
+                             List<SaleItemRequest> products, BigDecimal totalAmount, PaymentMethod paymentMethod,
                              LocalDateTime createdAt, String documentUrl) {
         this.id = id;
         this.saleDate = saleDate;
@@ -85,11 +86,11 @@ public class CreateSaleRequest  implements Serializable {
         this.products = products;
     }
 
-    public Double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Double totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
 

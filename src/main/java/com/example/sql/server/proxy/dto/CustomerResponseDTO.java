@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Builder
 public class CustomerResponseDTO implements Serializable {
 
-    private Integer id;
+    private Long id;
     private String type;
     private String phone;
     private String email;
@@ -19,7 +19,7 @@ public class CustomerResponseDTO implements Serializable {
     private String businessName;
     private String rnc;
 
-    public CustomerResponseDTO(Integer id, String type, String phone, String email, String businessName, String rnc) {
+    public CustomerResponseDTO(Long id, String type, String phone, String email, String businessName, String rnc) {
         this.id = id;
         this.type = type;
         this.phone = phone;
@@ -28,7 +28,7 @@ public class CustomerResponseDTO implements Serializable {
         this.rnc = rnc;
     }
 
-    public CustomerResponseDTO(Integer id, String type, String phone, String email, String firstName, String lastName, String identificationNumber) {
+    public CustomerResponseDTO(Long id, String type, String phone, String email, String firstName, String lastName, String identificationNumber) {
         this.id = id;
         this.type = type;
         this.phone = phone;
@@ -38,11 +38,11 @@ public class CustomerResponseDTO implements Serializable {
         this.identificationNumber = identificationNumber;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

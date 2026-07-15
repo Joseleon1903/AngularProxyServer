@@ -1,10 +1,13 @@
 package com.example.sql.server.proxy.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Sales" , schema = "WebApp")
@@ -14,33 +17,35 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "SaleDate", nullable = false)
+    @Column(name = "saleDate", nullable = false)
     private LocalDate saleDate;
 
-    @Column(name = "ReferenceNumber", length = 20, nullable = false)
+    @Column(name = "referenceNumber", length = 20, nullable = false)
     private String referenceNumber;
 
-    @Column(name = "CustomerName", length = 100, nullable = false)
-    private String customerName;
+    @ManyToOne
+    @JoinColumn(name = "CustomerId")
+    private Customer customer;
 
-    @Column(name = "ProductDescription", length = 255)
-    private String productDescription;
+    @Column(name = "description", length = 255)
+    private String description;
 
-    @Column(name = "Quantity", nullable = false)
-    private Integer quantity;
-
-    @Column(name = "UnitPrice", precision = 10, scale = 2, nullable = false)
-    private BigDecimal unitPrice;
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<SaleItem> saleItemList;
 
     // Campo calculado en la BD → solo lectura
-    @Column(name = "TotalAmount", insertable = false, updatable = false)
+    @Column(name = "totalAmount", insertable = false, updatable = false)
     private BigDecimal totalAmount;
 
-    @Column(name = "PaymentMethod", length = 50, nullable = false)
+    @Column(name = "paymentMethod", length = 50, nullable = false)
     private String paymentMethod;
 
-    @Column(name = "CreatedAt")
+    @Column(name = "createdAt")
     private LocalDateTime createdAt;
+
+    @Column(name = "documentUrl", length = 255)
+    private String documentUrl;
 
     // ====== Getters y Setters ======
 
@@ -68,40 +73,28 @@ public class Sale {
         this.referenceNumber = referenceNumber;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getTotalAmount() {
         return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public String getPaymentMethod() {
@@ -120,19 +113,38 @@ public class Sale {
         this.createdAt = createdAt;
     }
 
+    public String getDocumentUrl() {
+        return documentUrl;
+    }
+
+    public void setDocumentUrl(String documentUrl) {
+        this.documentUrl = documentUrl;
+    }
+
+    public List<SaleItem> getSaleItemList() {
+        if(saleItemList == null){
+            saleItemList = new ArrayList<>();
+        }
+        return saleItemList;
+    }
+
+    public void setSaleItemList(List<SaleItem> saleItemList) {
+        this.saleItemList = saleItemList;
+    }
+
     @Override
     public String toString() {
         return "Sale{" +
                 "id=" + id +
                 ", saleDate=" + saleDate +
                 ", referenceNumber='" + referenceNumber + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", productDescription='" + productDescription + '\'' +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
+                ", customer=" + customer +
+                ", description='" + description + '\'' +
+                ", saleItemList=" + saleItemList +
                 ", totalAmount=" + totalAmount +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", createdAt=" + createdAt +
+                ", documentUrl='" + documentUrl + '\'' +
                 '}';
     }
 }
