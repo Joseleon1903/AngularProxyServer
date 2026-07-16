@@ -35,7 +35,7 @@ public class Sale {
     private List<SaleItem> saleItemList;
 
     // Campo calculado en la BD → solo lectura
-    @Column(name = "totalAmount", insertable = false, updatable = false)
+    @Column(name = "totalAmount")
     private BigDecimal totalAmount;
 
     @Column(name = "paymentMethod", length = 50, nullable = false)
