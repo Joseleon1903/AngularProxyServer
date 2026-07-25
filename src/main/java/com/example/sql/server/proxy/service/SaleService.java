@@ -2,6 +2,8 @@ package com.example.sql.server.proxy.service;
 
 import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
+import com.example.sql.server.proxy.response.SalesResponseCard;
+import com.example.sql.server.proxy.response.TransactionResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +22,9 @@ public interface SaleService {
     public void delete(Long id);
 
     Sale createSale(CreateSaleRequest saleRequest);
+
+    List<SalesResponseCard> getSalesResponseCard();
+
+    List<TransactionResponse> getTransactions();
+
 }

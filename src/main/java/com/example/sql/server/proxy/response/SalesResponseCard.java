@@ -8,14 +8,12 @@ public class SalesResponseCard {
     private BigDecimal value;
     private BigDecimal changePorcentage;
     private String subtitle="vs last 30 days";
-    private String urlIcon="fas fa-wallet";
 
-    public SalesResponseCard(String title, BigDecimal value, BigDecimal changePorcentage, String subtitle, String urlIcon) {
+    public SalesResponseCard(String title, BigDecimal value, BigDecimal changePorcentage, String subtitle) {
         this.title = title;
         this.value = value;
         this.changePorcentage = changePorcentage;
         this.subtitle = subtitle;
-        this.urlIcon = urlIcon;
     }
 
     public SalesResponseCard() {
@@ -53,14 +51,6 @@ public class SalesResponseCard {
         this.subtitle = subtitle;
     }
 
-    public String getUrlIcon() {
-        return urlIcon;
-    }
-
-    public void setUrlIcon(String urlIcon) {
-        this.urlIcon = urlIcon;
-    }
-
     @Override
     public String toString() {
         return "SalesResponseCard{" +
@@ -68,7 +58,6 @@ public class SalesResponseCard {
                 ", value=" + value +
                 ", changePorcentage=" + changePorcentage +
                 ", subtitle='" + subtitle + '\'' +
-                ", urlIcon='" + urlIcon + '\'' +
                 '}';
     }
 }

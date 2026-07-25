@@ -2,6 +2,8 @@ package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
+import com.example.sql.server.proxy.response.SalesResponseCard;
+import com.example.sql.server.proxy.response.TransactionResponse;
 import com.example.sql.server.proxy.service.SaleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +59,22 @@ public class SaleController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // ============================
+    // GET ALL Sales
+    // ============================
+    @GetMapping("/summary-cards")
+    public ResponseEntity<List<SalesResponseCard>> getSummaryCards() {
+        return ResponseEntity.ok(service.getSalesResponseCard());
+    }
+
+    // ============================
+    // GET ALL Transaction
+    // ============================
+    @GetMapping("/transactions")
+    public ResponseEntity<List<TransactionResponse>> getSales() {
+        return ResponseEntity.ok(service.getTransactions());
+    }
+
 
 }
