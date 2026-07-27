@@ -116,17 +116,23 @@ public class SaleServiceImpl implements SaleService{
         c1.setSubtitle("Ultimos 30 días");
 
         //Cantidad total de ventas
+
+        BigDecimal saleCountPoprcentage = CommonsUtils.calculateSalesCountIncreasePercentage(sales);
+
         SalesResponseCard c3 = new SalesResponseCard();
         c3.setTitle("Cantidad total de ventas");
         c3.setValue(new BigDecimal(sales.size()));
-        c3.setChangePorcentage(new BigDecimal("100.0"));
+        c3.setChangePorcentage(saleCountPoprcentage);
         c3.setSubtitle("Ultimos 30 días");
 
         // Cantidad total de clientes
+
+        BigDecimal customersCountPorcentage = CommonsUtils.calculateCustomersCountIncreasePercentage(customersList);
+
         SalesResponseCard c4 = new SalesResponseCard();
         c4.setTitle("Cantidad total de clientes");
         c4.setValue(new BigDecimal(customersList.size()));
-        c4.setChangePorcentage(new BigDecimal("100.0"));
+        c4.setChangePorcentage(customersCountPorcentage);
         c4.setSubtitle("Ultimos 30 días");
 
         list.add(c1);
