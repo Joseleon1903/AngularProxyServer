@@ -1,5 +1,7 @@
 package com.example.sql.server.proxy.service;
 
+import com.example.sql.server.proxy.domain.Inventory;
+import com.example.sql.server.proxy.repository.InventoryRepository;
 import com.example.sql.server.proxy.response.StockItemResponse;
 import com.example.sql.server.proxy.response.StockResponse;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,32 @@ import java.util.List;
 @Service
 public class InventoryServiceImpl implements InventoryService{
 
+    private final InventoryRepository inventoryRepository;
+
+    public InventoryServiceImpl(InventoryRepository inventoryRepository){
+        this.inventoryRepository = inventoryRepository;
+    }
+
+    @Override
+    public Inventory create(Inventory entity) {
+        return inventoryRepository.save(entity);
+    }
+
+    @Override
+    public Inventory update(Long id, Inventory entity) {
+        return null;
+    }
+
+    @Override
+    public Inventory getById(Long id) {
+        return inventoryRepository.getReferenceById(id);
+    }
+
+
+    @Override
+    public List<Inventory> getInventoryList() {
+        return inventoryRepository.findAll();
+    }
 
     @Override
     public List<StockResponse> getStockInventory() {

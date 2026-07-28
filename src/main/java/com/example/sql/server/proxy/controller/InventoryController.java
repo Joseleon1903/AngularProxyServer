@@ -1,12 +1,11 @@
 package com.example.sql.server.proxy.controller;
 
+import com.example.sql.server.proxy.domain.Inventory;
 import com.example.sql.server.proxy.response.StockItemResponse;
 import com.example.sql.server.proxy.response.StockResponse;
 import com.example.sql.server.proxy.service.InventoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +33,17 @@ public class InventoryController {
     @GetMapping("/stock-items")
     public ResponseEntity<List<StockItemResponse>> getStockItems() {
         return ResponseEntity.ok(inventoryService.getStockItems());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Inventory>> getInventory() {
+        return ResponseEntity.ok(inventoryService.getInventoryList());
+    }
+
+    @PostMapping
+    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) {
+        Inventory inventoryOut = inventoryService.create(inventory);
+        return ResponseEntity.ok(inventoryOut);
     }
 
 }
