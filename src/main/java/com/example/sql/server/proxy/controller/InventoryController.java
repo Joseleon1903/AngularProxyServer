@@ -42,6 +42,9 @@ public class InventoryController {
 
     @PostMapping
     public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) {
+        System.out.println("Entering in createInventory");
+        System.out.println("inventory in : "+ inventory);
+        inventory.setId(null);
         Inventory inventoryOut = inventoryService.create(inventory);
         return ResponseEntity.ok(inventoryOut);
     }
