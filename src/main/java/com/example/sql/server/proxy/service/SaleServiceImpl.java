@@ -3,6 +3,7 @@ package com.example.sql.server.proxy.service;
 import com.example.sql.server.proxy.domain.Customer;
 import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.domain.SaleItem;
+import com.example.sql.server.proxy.process.ProcesarVentaService;
 import com.example.sql.server.proxy.repository.CustomerRepository;
 import com.example.sql.server.proxy.repository.SaleRepository;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
@@ -21,6 +22,7 @@ public class SaleServiceImpl implements SaleService{
     private final SaleRepository repository;
 
     private final CustomerRepository customerRepository;
+
 
     public SaleServiceImpl(SaleRepository repository, CustomerRepository customerRepository) {
         this.repository = repository;

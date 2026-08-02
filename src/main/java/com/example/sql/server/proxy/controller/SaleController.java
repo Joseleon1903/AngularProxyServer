@@ -1,6 +1,7 @@
 package com.example.sql.server.proxy.controller;
 
 import com.example.sql.server.proxy.domain.Sale;
+import com.example.sql.server.proxy.process.ProcesarVentaService;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
 import com.example.sql.server.proxy.response.SalesResponseCard;
 import com.example.sql.server.proxy.response.TransactionResponse;
@@ -16,8 +17,12 @@ public class SaleController {
 
     private final SaleService service;
 
-    public SaleController(SaleService service) {
+    private final ProcesarVentaService procesarVentaService;
+
+
+    public SaleController(SaleService service, ProcesarVentaService procesarVentaService) {
         this.service = service;
+        this.procesarVentaService = procesarVentaService;
     }
 
     // GET: listar todas
@@ -42,9 +47,10 @@ public class SaleController {
 
         Sale saleOut = service.createSale(sale);
 
-        return ResponseEntity.ok(saleOut);
+        System.out.println("llamada procesarVenta");
+        procesarVentaService.procesarVenta(saleOut);
 
-        //return ResponseEntity.ok(service.save(sale));
+        return ResponseEntity.ok(saleOut);
     }
 
     // PUT: actualizar
