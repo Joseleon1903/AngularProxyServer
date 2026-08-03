@@ -1,9 +1,13 @@
 package com.example.sql.server.proxy.service;
 
 import com.example.sql.server.proxy.domain.Inventory;
+import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.repository.InventoryRepository;
+import com.example.sql.server.proxy.repository.ProductRepository;
+import com.example.sql.server.proxy.repository.ProductTypeRepository;
 import com.example.sql.server.proxy.response.StockItemResponse;
 import com.example.sql.server.proxy.response.StockResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +18,12 @@ public class InventoryServiceImpl implements InventoryService{
 
     private final InventoryRepository inventoryRepository;
 
-    public InventoryServiceImpl(InventoryRepository inventoryRepository){
+    private final ProductRepository productRepository;
+
+    @Autowired
+    public InventoryServiceImpl(InventoryRepository inventoryRepository, ProductRepository productRepository){
         this.inventoryRepository = inventoryRepository;
+        this.productRepository=productRepository;
     }
 
     @Override
@@ -43,30 +51,33 @@ public class InventoryServiceImpl implements InventoryService{
     public List<StockResponse> getStockInventory() {
         List<StockResponse> list = new ArrayList<>();
 
+        List<Product> productos = productRepository.findAll();
+
+        Long productosActivos = productos.stream().filter(Product::getActive).count();
+        Long productosIncativos = productos.stream().filter(Product -> !Product.getActive()).count();
+        int totalProductos = productos.size();
+
         StockResponse s1 = new StockResponse();
-        s1.setTittle("Productos en Stock");
-        s1.setTotalItems(150);
-        s1.setItemUrl("https://i.pinimg.com/736x/bb/e3/95/bbe395c27077a804959b2c1f58f75889.jpg");
+        s1.setTitle("Cantidad de productos totales");
+        s1.setValue(String.valueOf(totalProductos));
+        s1.setSubtitle("Total de productos registrados en el sistema.");
+        s1.setStatus("NEUTRAL");
 
         StockResponse s2 = new StockResponse();
-        s2.setTittle("Bajo Stock");
-        s2.setTotalItems(35);
-        s2.setItemUrl("https://i.pinimg.com/736x/bb/e3/95/bbe395c27077a804959b2c1f58f75889.jpg");
+        s2.setTitle("Cantidad de productos activos");
+        s2.setValue(String.valueOf(productosActivos));
+        s2.setSubtitle("Total de productos activos registrados en el sistema.");
+        s2.setStatus("POSITIVE");
 
         StockResponse s3 = new StockResponse();
-        s3.setTittle("Agotados");
-        s3.setTotalItems(12);
-        s3.setItemUrl("https://i.pinimg.com/736x/bb/e3/95/bbe395c27077a804959b2c1f58f75889.jpg");
-
-        StockResponse s4 = new StockResponse();
-        s4.setTittle("Categorías");
-        s4.setTotalItems(8);
-        s4.setItemUrl("https://i.pinimg.com/736x/bb/e3/95/bbe395c27077a804959b2c1f58f75889.jpg");
+        s3.setTitle("Cantidad de productos incactivos");
+        s3.setValue(String.valueOf(productosIncativos));
+        s3.setSubtitle("Total de productos inactivos registrados en el sistema.");
+        s3.setStatus("NEGATIVE");
 
         list.add(s1);
         list.add(s2);
         list.add(s3);
-        list.add(s4);
 
         return list;
     }

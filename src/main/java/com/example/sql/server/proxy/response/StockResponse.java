@@ -1,50 +1,63 @@
 package com.example.sql.server.proxy.response;
 
-public class StockResponse {
+import java.io.Serializable;
 
-    private String tittle;
-    private Integer totalItems;
-    private String itemUrl;
+public class StockResponse implements Serializable {
 
-    public StockResponse(String tittle, Integer totalItems, String itemUrl) {
-        this.tittle = tittle;
-        this.totalItems = totalItems;
-        this.itemUrl = itemUrl;
+    private String title;
+    private String value;
+    private String subtitle;
+    private String status;
+
+    public StockResponse(String title, String value, String subtitle, String status) {
+        this.title = title;
+        this.value = value;
+        this.subtitle = subtitle;
+        this.status = status;
     }
 
     public StockResponse() {
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getTotalItems() {
-        return totalItems;
+    public String getValue() {
+        return value;
     }
 
-    public void setTotalItems(Integer totalItems) {
-        this.totalItems = totalItems;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public String getItemUrl() {
-        return itemUrl;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setItemUrl(String itemUrl) {
-        this.itemUrl = itemUrl;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "StockItemResponse{" +
-                "tittle='" + tittle + '\'' +
-                ", totalItems=" + totalItems +
-                ", itemUrl='" + itemUrl + '\'' +
+        return "StockResponse{" +
+                "title='" + title + '\'' +
+                ", value='" + value + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
