@@ -1,8 +1,6 @@
 package com.example.sql.server.proxy.service;
 
-import com.example.sql.server.proxy.domain.Customer;
-import com.example.sql.server.proxy.domain.Sale;
-import com.example.sql.server.proxy.domain.SaleItem;
+import com.example.sql.server.proxy.domain.*;
 import com.example.sql.server.proxy.process.ProcesarVentaService;
 import com.example.sql.server.proxy.repository.CustomerRepository;
 import com.example.sql.server.proxy.repository.SaleRepository;
@@ -13,6 +11,7 @@ import com.example.sql.server.proxy.utils.CommonsUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -146,42 +145,34 @@ public class SaleServiceImpl implements SaleService{
 
     @Override
     public List<TransactionResponse> getTransactions() {
-        List<TransactionResponse> list = new ArrayList<>();
+        List<TransactionResponse> listOut = new ArrayList<>();
 
-        TransactionResponse t1 = new TransactionResponse();
-        t1.setId("TXN-001");
-        t1.setCustomerName("Juan Pérez");
-        t1.setDate("15/04/2026");
-        t1.setStatus("Completado");
-        t1.setAmount(new BigDecimal("2500.00"));
+        List<Sale> ventas =  repository.findAll();
 
-        TransactionResponse t2 = new TransactionResponse();
-        t2.setId("TXN-002");
-        t2.setCustomerName("María Gómez");
-        t2.setDate("16/04/2026");
-        t2.setStatus("Pendiente");
-        t2.setAmount(new BigDecimal("1200.50"));
+        ventas.forEach( item ->{
+            TransactionResponse trn = new TransactionResponse();
+            trn.setId(item.getId());
+            trn.setSaleDate(item.getSaleDate());
+            trn.setReferenceNumber(item.getReferenceNumber());
+            trn.setCustomerType(item.getCustomer().getCustomerType().name());
+            if(item.getCustomer().getCustomerType().equals(CustomerType.F)){
+                CustomerPhysical phi = (CustomerPhysical) item.getCustomer();
+                String name = phi.getFirstName() + " "+ phi.getLastName();
+                trn.setCustomerName(name);
+            }else{
+                CustomerMoral phi = (CustomerMoral) item.getCustomer();
+                String name = phi.getBusinessName();
+                trn.setCustomerName(name);
+            }
 
-        TransactionResponse t3 = new TransactionResponse();
-        t3.setId("TXN-003");
-        t3.setCustomerName("Carlos López");
-        t3.setDate("17/04/2026");
-        t3.setStatus("Cancelado");
-        t3.setAmount(new BigDecimal("800.00"));
+            trn.setDescription(item.getDescription());
+            trn.setProductCount(item.getSaleItemList().size());
+            trn.setTotalAmount(trn.getTotalAmount());
+            trn.setPaymentMethod(trn.getPaymentMethod());
+            listOut.add(trn);
+        });
 
-        TransactionResponse t4 = new TransactionResponse();
-        t4.setId("TXN-004");
-        t4.setCustomerName("Ana Martínez");
-        t4.setDate("18/04/2026");
-        t4.setStatus("Completado");
-        t4.setAmount(new BigDecimal("950.75"));
-
-        list.add(t1);
-        list.add(t2);
-        list.add(t3);
-        list.add(t4);
-
-        return list;
+        return listOut;
     }
 
 }

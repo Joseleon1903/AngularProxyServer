@@ -78,7 +78,7 @@ public class SaleController {
     // GET ALL Transaction
     // ============================
     @GetMapping("/transactions")
-    public ResponseEntity<List<TransactionResponse>> getSales() {
+    public ResponseEntity<List<TransactionResponse>> getTransactions() {
         return ResponseEntity.ok(service.getTransactions());
     }
 
