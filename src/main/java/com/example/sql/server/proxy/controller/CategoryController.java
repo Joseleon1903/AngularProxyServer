@@ -5,9 +5,7 @@ import com.example.sql.server.proxy.service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/categories")

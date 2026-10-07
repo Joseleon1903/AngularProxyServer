@@ -17,6 +17,8 @@ public class RecipeServiceImpl implements RecipeService{
 
     // ✅ Crear receta con ingredientes
     public Recipe create(Recipe recipe) {
+        System.out.println("guardando recetas : "+ recipe);
+        recipe.setId(null);
         recipe = recipeRepository.save(recipe);
         System.out.println("save: "+recipe);
         return recipe;

@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Recipe implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -139,8 +139,8 @@ public class Recipe implements Serializable {
                 ", yield='" + yield + '\'' +
                 ", difficulty='" + difficulty + '\'' +
                 ", createdAt=" + createdAt +
-                ", ingredients=" + ingredients +
-                ", preparationSteps=" + preparationSteps +
+                ", ingredients=" + ingredients.size() +
+                ", preparationSteps=" + preparationSteps.size() +
                 '}';
     }
 }
