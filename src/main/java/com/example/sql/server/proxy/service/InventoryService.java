@@ -14,7 +14,7 @@ public interface InventoryService {
 
     Inventory getById(Long id);
 
-    List<Inventory> getInventoryList();
+    List<Inventory> getInventoryList(Integer from, Integer to);
 
     List<StockResponse> getStockInventory();
 

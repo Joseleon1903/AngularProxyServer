@@ -4,6 +4,7 @@ import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
 import com.example.sql.server.proxy.response.SalesResponseCard;
 import com.example.sql.server.proxy.response.TransactionResponse;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 public interface SaleService {
 
-    List<Sale> findAll();
+    List<Sale> findAll(Integer from,Integer to);
 
     public Optional<Sale> findById(Long id);
 

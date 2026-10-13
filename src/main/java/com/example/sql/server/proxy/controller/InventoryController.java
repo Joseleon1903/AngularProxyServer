@@ -39,8 +39,9 @@ public class InventoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Inventory>> getInventory() {
-        return ResponseEntity.ok(inventoryService.getInventoryList());
+    public ResponseEntity<List<Inventory>> getInventory(@RequestParam(value = "from", required = false) Integer from,
+                                                        @RequestParam(value = "to",required = false) Integer to) {
+        return ResponseEntity.ok(inventoryService.getInventoryList(from, to));
     }
 
     @PostMapping

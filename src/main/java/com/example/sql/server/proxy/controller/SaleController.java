@@ -27,8 +27,9 @@ public class SaleController {
 
     // GET: listar todas
     @GetMapping
-    public List<Sale> getAll() {
-        return service.findAll();
+    public List<Sale> getAll(@RequestParam(value = "from", required = false) Integer from,
+                             @RequestParam(value = "to",required = false) Integer to) {
+        return service.findAll(from, to);
     }
 
     // GET: obtener por id

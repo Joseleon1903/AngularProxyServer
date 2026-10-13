@@ -2,12 +2,16 @@ package com.example.sql.server.proxy.service;
 
 import com.example.sql.server.proxy.domain.Inventory;
 import com.example.sql.server.proxy.domain.Product;
+import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.repository.InventoryRepository;
 import com.example.sql.server.proxy.repository.ProductRepository;
 import com.example.sql.server.proxy.repository.ProductTypeRepository;
 import com.example.sql.server.proxy.response.StockItemResponse;
 import com.example.sql.server.proxy.response.StockResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,8 +47,20 @@ public class InventoryServiceImpl implements InventoryService{
 
 
     @Override
-    public List<Inventory> getInventoryList() {
-        return inventoryRepository.findAll();
+    public List<Inventory> getInventoryList(Integer from, Integer to) {
+        List<Inventory> respuesta =  new ArrayList<>();
+        if(from == null){
+            from = 0;
+            to = 100;
+        }
+        Pageable pageable = PageRequest.of(
+                from,
+                to
+        );
+        Page<Inventory> resPaginada =  inventoryRepository.findAll(pageable);
+        resPaginada.forEach(respuesta::add);
+
+        return respuesta;
     }
 
     @Override

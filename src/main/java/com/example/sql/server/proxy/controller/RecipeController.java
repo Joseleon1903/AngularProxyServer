@@ -26,7 +26,7 @@ public class RecipeController {
 
     // 📋 Listar
     @GetMapping
-    public List<RecipeResponseDTO> findAll() {
+    public List<RecipeResponseDTO> findAll(@RequestParam(value = "includeIngredients" , required = false) Boolean includeIngredients) {
         List<RecipeResponseDTO> response = RecipeUtils.toList(service.findAll());
         return response;
     }

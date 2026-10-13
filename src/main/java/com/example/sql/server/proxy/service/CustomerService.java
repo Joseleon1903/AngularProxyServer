@@ -9,7 +9,7 @@ public interface CustomerService {
 
     CustomerResponseDTO create(CustomerRequestDTO dto);
 
-    List<CustomerResponseDTO> findAll();
+    List<CustomerResponseDTO> findAll(Integer from, Integer to);
 
     CustomerResponseDTO findById(Long id);
 

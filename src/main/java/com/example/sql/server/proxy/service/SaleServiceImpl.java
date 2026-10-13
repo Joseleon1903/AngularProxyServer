@@ -1,41 +1,58 @@
 package com.example.sql.server.proxy.service;
 
 import com.example.sql.server.proxy.domain.*;
-import com.example.sql.server.proxy.process.ProcesarVentaService;
 import com.example.sql.server.proxy.repository.CustomerRepository;
 import com.example.sql.server.proxy.repository.SaleRepository;
 import com.example.sql.server.proxy.request.CreateSaleRequest;
 import com.example.sql.server.proxy.response.SalesResponseCard;
 import com.example.sql.server.proxy.response.TransactionResponse;
 import com.example.sql.server.proxy.utils.CommonsUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 public class SaleServiceImpl implements SaleService{
 
-    private final SaleRepository repository;
+    private final SaleRepository saleRepository;
 
     private final CustomerRepository customerRepository;
 
 
-    public SaleServiceImpl(SaleRepository repository, CustomerRepository customerRepository) {
-        this.repository = repository;
+    public SaleServiceImpl(SaleRepository saleRepository, CustomerRepository customerRepository) {
+        this.saleRepository = saleRepository;
         this.customerRepository = customerRepository;
     }
 
     // Obtener todas las ventas
     public List<Sale> findAll() {
-        return repository.findAll();
+        return saleRepository.findAll();
+    }
+
+    @Override
+    public List<Sale> findAll(Integer from, Integer to) {
+        List<Sale> respuesta =  new ArrayList<>();
+        if(from == null){
+            from = 0;
+            to = 100;
+        }
+        Pageable pageable = PageRequest.of(
+                from,
+                to
+        );
+       Page<Sale> resPaginada =  saleRepository.findAll(pageable);
+       resPaginada.forEach(respuesta::add);
+       return respuesta;
     }
 
     // Obtener por ID
     public Optional<Sale> findById(Long id) {
-        return repository.findById(id);
+        return saleRepository.findById(id);
     }
 
     public Sale createSale(CreateSaleRequest saleRequest) {
@@ -63,19 +80,19 @@ public class SaleServiceImpl implements SaleService{
         sale.setPaymentMethod(saleRequest.getPaymentMethod().toString());
         sale.setCreatedAt(LocalDateTime.now());
 
-        return repository.save(sale);
+        return saleRepository.save(sale);
     }
 
 
     // Crear venta
     public Sale save(Sale sale) {
         sale.setCreatedAt(LocalDateTime.now());
-        return repository.save(sale);
+        return saleRepository.save(sale);
     }
 
     // Actualizar venta
     public Sale update(Long id, Sale sale) {
-        Sale existing = repository.findById(id)
+        Sale existing = saleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sale not found"));
 
         existing.setSaleDate(sale.getSaleDate());
@@ -86,12 +103,12 @@ public class SaleServiceImpl implements SaleService{
 //        existing.setUnitPrice(sale.getUnitPrice());
         existing.setPaymentMethod(sale.getPaymentMethod());
 
-        return repository.save(existing);
+        return saleRepository.save(existing);
     }
 
     // Eliminar venta
     public void delete(Long id) {
-        repository.deleteById(id);
+        saleRepository.deleteById(id);
     }
 
 
@@ -101,7 +118,7 @@ public class SaleServiceImpl implements SaleService{
 
         List<Customer> customersList = customerRepository.findAll();
 
-        List<Sale> sales =  repository.findAll();
+        List<Sale> sales =  saleRepository.findAll();
         BigDecimal totalVentas = sales.stream()
                 .map(Sale::getTotalAmount)
                 .filter(Objects::nonNull)
@@ -147,7 +164,7 @@ public class SaleServiceImpl implements SaleService{
     public List<TransactionResponse> getTransactions() {
         List<TransactionResponse> listOut = new ArrayList<>();
 
-        List<Sale> ventas =  repository.findAll();
+        List<Sale> ventas =  saleRepository.findAll();
 
         ventas.forEach( item ->{
             TransactionResponse trn = new TransactionResponse();

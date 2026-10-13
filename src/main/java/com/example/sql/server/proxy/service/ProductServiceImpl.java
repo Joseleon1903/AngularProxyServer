@@ -1,13 +1,19 @@
 package com.example.sql.server.proxy.service;
 
+import com.example.sql.server.proxy.domain.Inventory;
 import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.repository.CategoryRepository;
 import com.example.sql.server.proxy.repository.ProductRepository;
 import com.example.sql.server.proxy.repository.ProductTypeRepository;
 import com.example.sql.server.proxy.request.ProductRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +35,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAll(Integer from, Integer to) {
+        List<Product> respuesta =  new ArrayList<>();
+        if(from == null){
+            from = 0;
+            to = 100;
+        }
+        Pageable pageable = PageRequest.of(
+                from,
+                to
+        );
+        System.out.println("pageable: "+pageable);
+        Page<Product> resPaginada = productRepository.findAll(pageable);
+        resPaginada.forEach(respuesta::add);
         return productRepository.findAll();
     }
 

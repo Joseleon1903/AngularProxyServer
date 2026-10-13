@@ -2,12 +2,13 @@ package com.example.sql.server.proxy.service;
 
 import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.request.ProductRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> findAll();
+    List<Product> findAll(Integer from, Integer to);
 
     Product findById(Long id);
 

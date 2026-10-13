@@ -23,8 +23,9 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<CustomerResponseDTO> findAll() {
-        return customerService.findAll();
+    public List<CustomerResponseDTO> findAll(@RequestParam(value = "from", required = false) Integer from,
+                                             @RequestParam(value = "to",required = false) Integer to) {
+        return customerService.findAll(from, to);
     }
 
     @GetMapping("/{id}")

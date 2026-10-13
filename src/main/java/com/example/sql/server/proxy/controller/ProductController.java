@@ -20,8 +20,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<Product>> getAll(@RequestParam(value = "from", required = false) Integer from,
+                                                @RequestParam(value = "to",required = false) Integer to) {
+        return ResponseEntity.ok(service.findAll(from, to));
     }
 
     @GetMapping("/{id}")

@@ -3,11 +3,16 @@ package com.example.sql.server.proxy.service;
 import com.example.sql.server.proxy.domain.Customer;
 import com.example.sql.server.proxy.domain.CustomerMoral;
 import com.example.sql.server.proxy.domain.CustomerPhysical;
+import com.example.sql.server.proxy.domain.Sale;
 import com.example.sql.server.proxy.dto.CustomerRequestDTO;
 import com.example.sql.server.proxy.dto.CustomerResponseDTO;
 import com.example.sql.server.proxy.repository.CustomerRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,8 +57,17 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<CustomerResponseDTO> findAll() {
-        return customerRepository.findAll()
+    public List<CustomerResponseDTO> findAll(Integer from,Integer to) {
+        if(from == null){
+            from = 0;
+            to = 100;
+        }
+        Pageable pageable = PageRequest.of(
+                from,
+                to
+        );
+
+        return customerRepository.findAll(pageable)
                 .stream()
                 .map(this::mapToDTO)
                 .toList();
