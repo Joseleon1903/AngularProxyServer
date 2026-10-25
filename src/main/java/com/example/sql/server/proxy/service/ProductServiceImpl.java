@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
         System.out.println("pageable: "+pageable);
         Page<Product> resPaginada = productRepository.findAll(pageable);
         resPaginada.forEach(respuesta::add);
-        return productRepository.findAll();
+        return respuesta;
     }
 
     @Override

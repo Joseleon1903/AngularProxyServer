@@ -24,12 +24,15 @@ public class RecipeController {
         return service.create(recipe);
     }
 
-    // 📋 Listar
     @GetMapping
-    public List<RecipeResponseDTO> findAll(@RequestParam(value = "includeIngredients" , required = false) Boolean includeIngredients) {
-        List<RecipeResponseDTO> response = RecipeUtils.toList(service.findAll());
+    public List<RecipeResponseDTO> findPaginated(@RequestParam(value = "from", required = false) Integer from,
+                                                 @RequestParam(value = "to",required = false) Integer to) {
+
+        List<RecipeResponseDTO> response = RecipeUtils.toList(service.findAll(from, to));
         return response;
     }
+
+
 
     // 🔍 Obtener por id
     @GetMapping("/{id}")

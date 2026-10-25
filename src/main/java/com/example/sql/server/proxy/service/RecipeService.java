@@ -22,4 +22,6 @@ public interface RecipeService {
 
     // ❌ Eliminar
     public void delete(Long id);
+
+    List<Recipe> findAll(Integer from, Integer to);
 }

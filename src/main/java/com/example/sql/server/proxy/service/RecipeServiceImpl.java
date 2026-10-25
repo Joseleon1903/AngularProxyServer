@@ -1,9 +1,14 @@
 package com.example.sql.server.proxy.service;
 
+import com.example.sql.server.proxy.domain.Product;
 import com.example.sql.server.proxy.domain.Recipe;
 import com.example.sql.server.proxy.repository.RecipeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,5 +65,23 @@ public class RecipeServiceImpl implements RecipeService{
     // ❌ Eliminar
     public void delete(Long id) {
         recipeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Recipe> findAll(Integer from, Integer to) {
+
+        List<Recipe> respuesta =  new ArrayList<>();
+        if(from == null){
+            from = 0;
+            to = 100;
+        }
+        Pageable pageable = PageRequest.of(
+                from,
+                to
+        );
+        System.out.println("pageable: "+pageable);
+        Page<Recipe> resPaginada = recipeRepository.findAll(pageable);
+        resPaginada.forEach(respuesta::add);
+        return respuesta;
     }
 }
