@@ -13,4 +13,5 @@ public interface CustomerService {
 
     CustomerResponseDTO findById(Long id);
 
+    CustomerResponseDTO updateCustomer(CustomerRequestDTO dto);
 }

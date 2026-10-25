@@ -28,6 +28,11 @@ public class CustomerController {
         return customerService.findAll(from, to);
     }
 
+    @PutMapping
+    public CustomerResponseDTO update(@RequestBody CustomerRequestDTO dto) {
+        return customerService.updateCustomer(dto);
+    }
+
     @GetMapping("/{id}")
     public CustomerResponseDTO findById(@PathVariable Long id) {
         return customerService.findById(id);

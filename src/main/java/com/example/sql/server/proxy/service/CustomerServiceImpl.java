@@ -3,6 +3,7 @@ package com.example.sql.server.proxy.service;
 import com.example.sql.server.proxy.domain.Customer;
 import com.example.sql.server.proxy.domain.CustomerMoral;
 import com.example.sql.server.proxy.domain.CustomerPhysical;
+import com.example.sql.server.proxy.domain.CustomerType;
 import com.example.sql.server.proxy.dto.CustomerRequestDTO;
 import com.example.sql.server.proxy.dto.CustomerResponseDTO;
 import com.example.sql.server.proxy.repository.CustomerRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -76,6 +78,32 @@ public class CustomerServiceImpl implements CustomerService{
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
         return mapToDTO(customer);
+    }
+
+    @Override
+    public CustomerResponseDTO updateCustomer(CustomerRequestDTO dto) {
+        System.out.println("entering in updateCustomer");
+        System.out.println("CustomerRequestDTO: " + dto);
+        Customer cus = customerRepository.findById(dto.getId()).get();
+
+        cus.setEmail(dto.getEmail());
+        cus.setPhone(dto.getPhone());
+
+        if(cus.getCustomerType().equals(CustomerType.F)){
+            CustomerPhysical fisiPhysical = (CustomerPhysical) cus;
+            fisiPhysical.setFirstName(dto.getFirstName());
+            fisiPhysical.setIdentificationNumber(dto.getIdentificationNumber());
+            fisiPhysical.setLastName(dto.getLastName());
+        }else{
+            CustomerMoral moralPhysical = (CustomerMoral) cus;
+            moralPhysical.setBusinessName(dto.getBusinessName());
+            moralPhysical.setRnc(dto.getRnc());
+        }
+        System.out.println("Customer entity: " + cus);
+        Customer entity =  customerRepository.save(cus);
+        CustomerResponseDTO dtoResponse = mapToDTO(entity);
+        System.out.println("reponse: "+dtoResponse);
+        return dtoResponse;
     }
 
     private CustomerResponseDTO mapToDTO(Customer customer) {

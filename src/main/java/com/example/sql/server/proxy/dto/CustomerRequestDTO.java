@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class CustomerRequestDTO implements Serializable {
 
+    private Long id;
     private String type; // "F" o "M"
 
     private String phone;
@@ -19,6 +20,18 @@ public class CustomerRequestDTO implements Serializable {
     private String rnc;
 
     public CustomerRequestDTO(String type, String phone, String email, String firstName, String lastName, String identificationNumber, String businessName, String rnc) {
+        this.type = type;
+        this.phone = phone;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.identificationNumber = identificationNumber;
+        this.businessName = businessName;
+        this.rnc = rnc;
+    }
+
+    public CustomerRequestDTO(Long id, String type, String phone, String email, String firstName, String lastName, String identificationNumber, String businessName, String rnc) {
+        this.id = id;
         this.type = type;
         this.phone = phone;
         this.email = email;
@@ -96,10 +109,19 @@ public class CustomerRequestDTO implements Serializable {
         this.rnc = rnc;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "CustomerRequestDTO{" +
-                "type='" + type + '\'' +
+                "id=" + id +
+                ", type='" + type + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -109,4 +131,5 @@ public class CustomerRequestDTO implements Serializable {
                 ", rnc='" + rnc + '\'' +
                 '}';
     }
+
 }
